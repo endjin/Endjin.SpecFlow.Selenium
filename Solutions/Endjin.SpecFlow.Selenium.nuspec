@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+    <id>Endjin.SpecFlow.Selenium</id>
+    <version>1.0.0.0</version>
+    <title>Endjin SpecFlow Selenium Web UI Testing Framework</title>
+    <authors>Endjin</authors>
+    <owners>Endjin</owners>
+    <licenseUrl>https://dl.dropboxusercontent.com/u/5892928/Endjin/Software-License/Software-License.txt</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Endjin's SpecFlow and Selenium testing framework for smart automated web UI tests development.</description>
+    <dependencies>
+      <dependency id="Clarius.TransformOnBuild" version="1.1.1" />
+      <dependency id="Endjin.Core.Composition" version="2.2.0.26" />
+      <dependency id="Endjin.Retry" version="1.0.0.41" />
+      <dependency id="Newtonsoft.Json" version="6.0.3" />
+      <dependency id="NUnit" version="2.6.3" />
+      <dependency id="PhantomJS" version="1.9.7" />
+      <dependency id="Selenium.Support" version="2.42.0" />
+      <dependency id="Selenium.WebDriver" version="2.42.0" />
+      <dependency id="Should" version="1.1.20" />
+      <dependency id="SpecFlow" version="1.9.0" />
+      <dependency id="SpecFlow.NUnit" version="1.1.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="License.txt" target="License.txt" />
+    <file src="Install.ps1" target="tools" />
+
+    <file src="EndjinSpecFlowSeleniumFrameworkNet45.dll" target="lib\net45-full\" />
+    <file src="EndjinSpecFlowSeleniumFrameworkNet45.pdb" target="lib\net45-full\" />
+
+    <file src="WebsiteUnderTest\*.*" target="Content\WebsiteUnderTest" />
+
+  </files>
+</package>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="Build.properties" />
+  <Import Project="CodeAnalysis\StyleCop.targets" />
+  <Import Project="Common\Global.imports" />
+  <Import Project="Compile\Compile.targets" />
+  <Import Project="Drop\Drop.targets" />
+  <Import Project="Test\Test.targets" />
+
+  <PropertyGroup>
+    <BuildDependsOn>
+      StyleCop;
+      Compile;
+      RunTests;
+      DropBuild;
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <Target Name="Build"
+          DependsOnTargets="$(BuildDependsOn)">
+    
+    <Message Text="$(NewLineChar)***** BUILD COMPLETE *****"
+             Importance="high" />
+  </Target>
+
+  <Target Name="Rebuild"
+          DependsOnTargets="Clean;Build" />
+
+  <Target Name="Clean"
+          DependsOnTargets="CleanSolutions" />
+ 
+ </Project>
