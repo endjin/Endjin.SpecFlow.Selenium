@@ -25,7 +25,6 @@
   </metadata>
   <files>
     <file src="License.txt" target="License.txt" />
-    <file src="Install.ps1" target="tools" />
 
     <file src="EndjinSpecFlowSeleniumFrameworkNet45.dll" target="lib\net45-full\" />
     <file src="EndjinSpecFlowSeleniumFrameworkNet45.pdb" target="lib\net45-full\" />
