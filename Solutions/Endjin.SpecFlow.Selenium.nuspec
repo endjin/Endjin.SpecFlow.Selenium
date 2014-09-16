@@ -11,7 +11,6 @@
     <description>Endjin's SpecFlow and Selenium testing framework for smart automated web UI tests development.</description>
     <dependencies>
       <dependency id="Clarius.TransformOnBuild" version="1.1.1" />
-      <dependency id="Endjin.Core.Composition" version="2.2.0.26" />
       <dependency id="Endjin.Retry" version="1.0.0.41" />
       <dependency id="Newtonsoft.Json" version="6.0.3" />
       <dependency id="NUnit" version="2.6.3" />
