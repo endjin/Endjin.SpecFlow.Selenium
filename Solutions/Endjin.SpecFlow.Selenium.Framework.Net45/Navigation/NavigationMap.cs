@@ -18,6 +18,8 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
 
         private List<SectionMapEntry> sectionMappings;
 
+        private List<PageMapEntry> pageRedirectionMappings;
+
         private PageMapEntry HomePage
         {
             get
@@ -104,6 +106,23 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
         }
 
         protected void AddPage<T>(string pageName, string slug, IEnumerable<string> sections = null) where T : IPageModel
+        {
+            var entry = new PageMapEntry
+                        {
+                                Name = pageName,
+                                Type = typeof(T),
+                                Slug = slug
+                        };
+
+            if (sections != null)
+            {
+                entry.Sections = sections.ToList();
+            }
+
+            this.pageMappings.Add(entry);
+        }
+
+        protected void AddRedirectedPage<T>(string pageName, string slug, IEnumerable<string> sections = null) where T : IPageModel
         {
             var entry = new PageMapEntry
                         {

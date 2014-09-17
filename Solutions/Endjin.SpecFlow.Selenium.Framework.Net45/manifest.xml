@@ -7,6 +7,10 @@
         <File>Endjin.SpecFlow.Selenium.Framework.Net45.csproj</File>
         <File>Endjin.SpecFlow.Selenium.Framework.Net45.csproj.DotSettings</File>
         <File>packages.config</File>
+        <File>phantomjs-license.txt</File>
+        <File>CodeGen\GenerateWebTests-Properties.png</File>
+        <File>CodeGen\GenerateWebTests.tt</File>
+        <File>CodeGen\remote_browser.config.json</File>
         <File>Constants\CapabilityTypeExt.cs</File>
         <File>Constants\ScopeTag.cs</File>
         <File>Contracts\INavigationMap.cs</File>
@@ -30,10 +34,10 @@
         <File>Html\Table\Table.cs</File>
         <File>Models\PageModel.cs</File>
         <File>Models\SectionModel.cs</File>
-        <File>Navigation\NavigatorSessionParameters.cs</File>
-        <File>Navigation\PageMapEntry.cs</File>
         <File>Navigation\NavigationMap.cs</File>
         <File>Navigation\Navigator.cs</File>
+        <File>Navigation\NavigatorSessionParameters.cs</File>
+        <File>Navigation\PageMapEntry.cs</File>
         <File>Navigation\SectionMapEntry.cs</File>
         <File>Properties\AssemblyInfo.cs</File>
         <File>Reporting\JobStatusUpdate.cs</File>
@@ -42,10 +46,6 @@
         <File>Transforms\StepArgumentTransformations.cs</File>
         <File>Views\PageView.cs</File>
         <File>Views\SectionView.cs</File>
-        <File>WebsiteUnderTest\GenerateWebTests.tt</File>
-        <File>WebsiteUnderTest\ReadMe.txt</File>
-        <File>WebsiteUnderTest\remote_browser.config.json</File>
-        <File>WebsiteUnderTest\WebsiteNavigationMap.cs</File>
     </Files>
     <Id>e2bc7fd8-2b73-49dc-8110-41ffba6fb643</Id>
     <Name>Specflow.Selenium</Name>

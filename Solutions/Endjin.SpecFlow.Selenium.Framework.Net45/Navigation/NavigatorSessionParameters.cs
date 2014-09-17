@@ -31,6 +31,12 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             set;
         }
 
+        public bool HideCommandPromptWindow
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Specifies the amount of time (in seconds) the driver should wait 
         /// when searching for an element if it is not immediately present.

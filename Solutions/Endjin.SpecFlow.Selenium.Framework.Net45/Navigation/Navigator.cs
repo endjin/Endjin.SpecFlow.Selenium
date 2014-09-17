@@ -5,7 +5,9 @@
     using System;
     using System.Diagnostics;
     using System.Drawing.Imaging;
+    using System.Linq;
     using System.Threading.Tasks;
+    using System.Web;
 
     using Endjin.SpecFlow.Selenium.Framework.Contracts;
     using Endjin.SpecFlow.Selenium.Framework.Drivers;
@@ -20,11 +22,13 @@
 
     public class Navigator
     {
-        private static Navigator navigator;
-
         private readonly INavigationMap navigationMap;
 
+        private static Navigator navigator;
+
         private EventFiringWebDriver driver;
+
+        private string queryParams;
 
         private Navigator(IWebDriver driver, INavigationMap map)
         {
@@ -84,12 +88,6 @@
             private set;
         }
 
-        public void SelectTab(int tabIndex)
-        {
-            var tab = this.driver.WindowHandles[tabIndex];
-            this.driver.SwitchTo().Window(tab);
-        }
-
         public static void Initialize(NavigatorSessionParameters session)
         {
             if (navigator != null)
@@ -110,6 +108,22 @@
         public void Bind(IWebView page)
         {
             PageFactory.InitElements(this.driver, page);
+        }
+
+        public void BuildQueryParameters(string format, params string[] parameters)
+        {
+            var encoded = parameters.Select(HttpUtility.UrlEncode).ToArray();
+            this.queryParams = string.Format(format, encoded);
+        }
+
+        public void ClearQueryParameters()
+        {
+            this.queryParams = null;
+        }
+
+        public void Click(IWebElement element)
+        {
+            this.Perform(actions => actions.Click(element));
         }
 
         public void Close()
@@ -139,6 +153,27 @@
             }
         }
 
+        public void ContextClick(IWebElement element)
+        {
+            this.Perform(actions => actions.ContextClick(element));
+        }
+
+        public void DoubleClick(IWebElement element)
+        {
+            this.Perform(actions => actions.DoubleClick(element));
+        }
+
+        public void DragAndDrop(IWebElement fromElement, IWebElement toElement)
+        {
+            var actions = new Actions(this.driver);
+            actions.DragAndDrop(fromElement, toElement).Build().Perform();
+        }
+
+        public object Execute(string script, params object[] args)
+        {
+            return this.driver.ExecuteScript(script, args);
+        }
+
         public IPageModel GoToHomePage()
         {
             var pageName = this.navigationMap.HomePageName;
@@ -148,6 +183,11 @@
         public IPageModel GoToPageByName(string pageName)
         {
             var url = this.navigationMap.GetPageUrl(pageName);
+
+            if (this.queryParams != null)
+            {
+                url += "?" + this.queryParams;
+            }
 
             var navigation = this.driver.Navigate();
             navigation.GoToUrl(url);
@@ -174,17 +214,41 @@
             return page;
         }
 
+        public void Hover(IWebElement element)
+        {
+            this.Perform(actions => actions.MoveToElement(element));
+        }
+
         public bool IsOnPage(string pageName)
         {
             var currentUri = new Uri(this.CurrentUrl);
             var uri = this.navigationMap.GetPageUri(pageName);
 
             return Uri.Compare(
-                    currentUri,
-                    uri,
-                    UriComponents.Path,
-                    UriFormat.UriEscaped,
-                    StringComparison.InvariantCultureIgnoreCase) == 0;
+                               currentUri,
+                               uri,
+                               UriComponents.Path,
+                               UriFormat.UriEscaped,
+                               StringComparison.InvariantCultureIgnoreCase) == 0;
+        }
+
+        public bool IsRedirectedToPage(string pageName)
+        {
+            var currentUri = this.CurrentUrl;
+            var uri = this.navigationMap.GetPageUri(pageName).ToString();
+
+            return currentUri.Contains(uri);
+        }
+
+        public void MaximizeWindow()
+        {
+            this.driver.Manage().Window.Maximize();
+        }
+
+        public void Pause(int delay = 5)
+        {
+            var seconds = TimeSpan.FromSeconds(delay);
+            Task.Delay(seconds).Wait();
         }
 
         public void ResetCurrentPage()
@@ -202,46 +266,10 @@
             this.driver.ExecuteScript("window.scrollTo(0, " + element.Location.Y + ");");
         }
 
-        public void Click(IWebElement element)
+        public void SelectTab(int tabIndex)
         {
-            this.Perform(actions => actions.Click(element));
-        }
-
-        public void ContextClick(IWebElement element)
-        {
-            this.Perform(actions => actions.ContextClick(element));
-        }
-
-        public void DoubleClick(IWebElement element)
-        {
-            this.Perform(actions => actions.DoubleClick(element));
-        }
-
-        public void DragAndDrop(IWebElement fromElement, IWebElement toElement)
-        {
-            var actions = new Actions(this.driver);
-            actions.DragAndDrop(fromElement, toElement).Build().Perform();
-        }
-
-        public void Hover(IWebElement element)
-        {
-            this.Perform(actions => actions.MoveToElement(element));
-        }
-
-        private void Perform(Func<Actions, Actions> func)
-        {
-            var actions = new Actions(this.driver);
-            func(actions).Build().Perform();
-        }
-
-        public object Execute(string script, params object[] args)
-        {
-            return this.driver.ExecuteScript(script, args);
-        }
-
-        public void MaximizeWindow()
-        {
-            this.driver.Manage().Window.Maximize();
+            var tab = this.driver.WindowHandles[tabIndex];
+            this.driver.SwitchTo().Window(tab);
         }
 
         public void TakeScreenshot(string fileName)
@@ -261,24 +289,32 @@
         private static void OnExceptionThrown(object sender, WebDriverExceptionEventArgs args)
         {
             var error = string.Format(
-                    "** Error{0}{1}{0}{2}",
-                    Environment.NewLine,
-                    args.Driver.Url,
-                    args.ThrownException);
+                                      "** Error{0}{1}{0}{2}",
+                                      Environment.NewLine,
+                                      args.Driver.Url,
+                                      args.ThrownException);
 
             Trace.TraceError(error);
         }
 
         private void OnElementClicked(object sender, WebElementEventArgs e)
         {
+            this.Pause(2);
             var navigated = new Uri(this.driver.Url);
             this.SetCurrentPage(navigated);
         }
 
         private void OnNavigated(object sender, WebDriverNavigationEventArgs args)
         {
+            this.Pause(2);
             var navigated = new Uri(args.Url);
             this.SetCurrentPage(navigated);
+        }
+
+        private void Perform(Func<Actions, Actions> func)
+        {
+            var actions = new Actions(this.driver);
+            func(actions).Build().Perform();
         }
 
         private void SetCurrentPage(Uri navigated)
@@ -292,11 +328,11 @@
                 var current = new Uri(this.CurrentPage.Url);
 
                 var noChange = Uri.Compare(
-                        current,
-                        navigated,
-                        UriComponents.AbsoluteUri,
-                        UriFormat.UriEscaped,
-                        StringComparison.InvariantCultureIgnoreCase) == 0;
+                                           current,
+                                           navigated,
+                                           UriComponents.AbsoluteUri,
+                                           UriFormat.UriEscaped,
+                                           StringComparison.InvariantCultureIgnoreCase) == 0;
 
                 if (noChange)
                 {
@@ -323,12 +359,6 @@
             this.driver.ExceptionThrown -= OnExceptionThrown;
             this.driver.Navigated -= this.OnNavigated;
             this.driver.ElementClicked -= this.OnElementClicked;
-        }
-
-        public void Pause(int delay = 5)
-        {
-            var seconds = TimeSpan.FromSeconds(delay);
-            Task.Delay(seconds).Wait();
         }
     }
 }

@@ -28,6 +28,7 @@
                                          NavigationMap = map,
                                          AcceptUntrustedCertificates = TestEnvironment.Current.AcceptUntrustedCertificates,
                                          WebDriverType = TestEnvironment.Current.WebDriverType,
+                                         HideCommandPromptWindow = TestEnvironment.Current.HideCommandPromptWindow,
                                          ImplicitlyWait = TestEnvironment.Current.ImplicitlyWait,
                                          PageLoadTimeout = TestEnvironment.Current.PageLoadTimeout,
                                          ScriptTimeout = TestEnvironment.Current.ScriptTimeout,
@@ -84,8 +85,9 @@
         private static Task TraceResultAsync()
         {
             var sessionId = Navigator.Browser.SessionId;
-            var jobName = ScenarioContext.Current.ScenarioInfo.Title;
-            var error = ScenarioContext.Current.TestError;
+
+            var jobName = ScenarioContext.Current == null ? "n/a" : ScenarioContext.Current.ScenarioInfo.Title;
+            var error = ScenarioContext.Current == null ? new Exception("Unknown") : ScenarioContext.Current.TestError;
 
             var reporter = new TestStatusReporter();
             return reporter.ReportAsync(sessionId, jobName, error == null, error);

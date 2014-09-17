@@ -22,7 +22,7 @@
             this.Sections = new List<ISectionModel>();
         }
 
-        protected TView View
+        public List<ISectionModel> Sections
         {
             get;
             set;
@@ -40,7 +40,7 @@
             set;
         }
 
-        public List<ISectionModel> Sections
+        protected TView View
         {
             get;
             set;
@@ -49,6 +49,11 @@
         public TModel As<TModel>() where TModel : class, IPageModel
         {
             return this as TModel;
+        }
+
+        public bool ContainsText(string text)
+        {
+            return this.View.Body.Text.ToLowerInvariant().Contains(text.ToLowerInvariant());
         }
 
         public bool HasServerError()
@@ -67,16 +72,11 @@
             var expected = new Uri(expectedUrl);
 
             return Uri.Compare(
-                    actual,
-                    expected,
-                    UriComponents.AbsoluteUri,
-                    UriFormat.UriEscaped,
-                    StringComparison.InvariantCultureIgnoreCase) == 0;
-        }
-
-        public bool ContainsText(string text)
-        {
-            return this.View.Body.Text.ToLowerInvariant().Contains(text.ToLowerInvariant());
+                               actual,
+                               expected,
+                               UriComponents.AbsoluteUri,
+                               UriFormat.UriEscaped,
+                               StringComparison.InvariantCultureIgnoreCase) == 0;
         }
 
         protected void ClearAndType(IWebElement element, string value)

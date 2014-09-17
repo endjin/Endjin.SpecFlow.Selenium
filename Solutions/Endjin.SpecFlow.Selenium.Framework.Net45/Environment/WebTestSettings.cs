@@ -29,6 +29,13 @@
             set;
         }
 
+        [JsonProperty("hide_command_prompt_window")]
+        public bool? HideCommandPromptWindow
+        {
+            get;
+            set;
+        }
+
         [JsonProperty("hide_iis")]
         public bool? HideIIS
         {

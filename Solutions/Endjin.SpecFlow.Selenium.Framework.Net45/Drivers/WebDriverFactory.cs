@@ -28,9 +28,12 @@
             return driver;
         }
 
-        private static IWebDriver Chrome()
+        private static IWebDriver Chrome(NavigatorSessionParameters session)
         {
-            return new ChromeDriver();
+            var service = ChromeDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
+
+            return new ChromeDriver(service, new ChromeOptions());
         }
 
         private static IWebDriver CreateDriver(NavigatorSessionParameters session)
@@ -38,25 +41,28 @@
             switch (session.WebDriverType)
             {
                 case WebDriverType.Chrome:
-                    return Chrome();
+                    return Chrome(session);
                 case WebDriverType.Firefox:
-                    return Firefox();
+                    return Firefox(session);
                 case WebDriverType.InternetExplorer:
-                    return InternetExplorer();
+                    return InternetExplorer(session);
                 case WebDriverType.PhantomJs:
-                    return PhantomJs();
+                    return PhantomJs(session);
                 case WebDriverType.Remote:
                     return RemoteDriver(session);
                 case WebDriverType.Safari:
                     return Safari();
                 default:
-                    return PhantomJs();
+                    return PhantomJs(session);
             }
         }
 
-        private static FirefoxDriver Firefox()
+        private static FirefoxDriver Firefox(NavigatorSessionParameters session)
         {
-            return new FirefoxDriver();
+            var profile = new FirefoxProfile { AcceptUntrustedCertificates = session.AcceptUntrustedCertificates };
+            profile.SetPreference("browser.startup.homepage", "about:blank");
+
+            return new FirefoxDriver(profile);
         }
 
         private static DesiredCapabilities GetDefaultCapabilities(string browser)
@@ -87,9 +93,12 @@
             }
         }
 
-        private static IWebDriver InternetExplorer()
+        private static IWebDriver InternetExplorer(NavigatorSessionParameters session)
         {
-            return new InternetExplorerDriver();
+            var service = InternetExplorerDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
+
+            return new InternetExplorerDriver(service, new InternetExplorerOptions());
         }
 
         private static void Manage(IWebDriver driver, NavigatorSessionParameters session)
@@ -105,9 +114,12 @@
             driver.Manage().Timeouts().SetScriptTimeout(scriptTimeout);
         }
 
-        private static IWebDriver PhantomJs()
+        private static IWebDriver PhantomJs(NavigatorSessionParameters session)
         {
-            return new PhantomJSDriver();
+            var service = PhantomJSDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
+
+            return new PhantomJSDriver(service, new PhantomJSOptions());
         }
 
         private static IWebDriver RemoteDriver(NavigatorSessionParameters session)
@@ -122,8 +134,7 @@
             capabilities.SetCapability(CapabilityTypeExt.AccessKey, session.RemoteKey);
             capabilities.SetCapability(CapabilityTypeExt.TestName, TestContext.CurrentContext.Test.Name);
 
-            if (session.AcceptUntrustedCertificates
-                && session.RemoteBrowser == DesiredCapabilities.Firefox().BrowserName)
+            if (session.AcceptUntrustedCertificates)
             {
                 capabilities.SetCapability("AcceptUntrustedCertificates", true);
             }

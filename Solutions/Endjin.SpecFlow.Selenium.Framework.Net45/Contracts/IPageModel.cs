@@ -33,5 +33,7 @@
         bool IsSecure();
 
         bool IsValid(string expectedUrl);
+
+        bool ContainsText(string text);
     }
 }

@@ -80,6 +80,14 @@
             }
         }
 
+        public bool HideCommandPromptWindow
+        {
+            get
+            {
+                return this.settings.HideCommandPromptWindow ?? false;
+            }
+        }
+
         public int ImplicitlyWait
         {
             get

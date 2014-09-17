@@ -1,15 +1,4 @@
-﻿Endjin SpecFlow Selenium Web UI Testing Framework
-
-
-TODO
-0. NuGet description
-1. Setup guide
-2. How-To
-3. Sample project
-
-Sample Config Settings in web_test.config.json:
-
-<!-- The name of the web application (in the current solution) that is under test -->
+﻿<!-- The name of the web application (in the current solution) that is under test -->
 "web_app_name": "web_app_project_name"
 
 <!-- Websites -->

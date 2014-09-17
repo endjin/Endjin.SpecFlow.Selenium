@@ -95,12 +95,9 @@ namespace <#= ns.Key #>
         {
             configurations = GetWebTestConfigurations();
         }
-        catch(Exception ex)
+        catch
         {
             configurations = new List<WebTestConfiguration>();
-#>
-<#= ex.ToString() #>
-<#
         }
 
         foreach(WebTestConfiguration configuration in configurations)
