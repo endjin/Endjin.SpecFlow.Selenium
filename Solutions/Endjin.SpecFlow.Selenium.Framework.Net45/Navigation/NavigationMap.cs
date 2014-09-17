@@ -18,8 +18,6 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
 
         private List<SectionMapEntry> sectionMappings;
 
-        private List<PageMapEntry> pageRedirectionMappings;
-
         private PageMapEntry HomePage
         {
             get
