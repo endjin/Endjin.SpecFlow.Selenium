@@ -19,10 +19,10 @@
         protected PageModel()
         {
             this.Initialise();
-            this.Sections = new List<ISectionModel>();
+            this.Sections = new Dictionary<string, ISectionModel>();
         }
 
-        public List<ISectionModel> Sections
+        public Dictionary<string, ISectionModel> Sections
         {
             get;
             set;

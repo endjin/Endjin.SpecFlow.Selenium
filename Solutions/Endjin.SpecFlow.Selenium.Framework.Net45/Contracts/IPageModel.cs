@@ -20,7 +20,7 @@
             set;
         }
 
-        List<ISectionModel> Sections
+        Dictionary<string, ISectionModel> Sections
         {
             get;
             set;

@@ -84,7 +84,7 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
 
             foreach (var section in sections)
             {
-                page.Sections.Add(section);
+                page.Sections.Add(section.Name, section);
             }
         }
 
