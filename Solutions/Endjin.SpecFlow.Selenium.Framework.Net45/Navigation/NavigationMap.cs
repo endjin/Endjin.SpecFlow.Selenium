@@ -98,8 +98,14 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             }
 
             return
-                    entry.Sections.Select(this.GetSectionModelType)
-                            .Select(type => (ISectionModel)Activator.CreateInstance(type))
+                    entry.Sections.Select(
+                                    sectionName =>
+                                    {
+                                        var type = this.GetSectionModelType(sectionName);
+                                        var section = (ISectionModel)Activator.CreateInstance(type);
+                                        section.Name = sectionName;
+                                        return section;
+                                    })
                             .ToList();
         }
 
