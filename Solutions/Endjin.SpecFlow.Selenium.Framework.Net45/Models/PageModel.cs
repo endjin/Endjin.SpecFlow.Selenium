@@ -82,7 +82,7 @@
 
         public TSectionModel Section<TSectionModel>() where TSectionModel : class, ISectionModel
         {
-            return this.Sections.FirstOrDefault(section => section.GetType() == typeof(TSectionModel)).Value.As<TSectionModel>();
+            return this.Sections.FirstOrDefault(section => section.Value.GetType() == typeof(TSectionModel)).Value.As<TSectionModel>();
         }
 
         protected void ClearAndType(IWebElement element, string value)
