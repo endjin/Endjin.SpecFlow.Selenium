@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Endjin.SpecFlow.Selenium.Framework.Contracts;
     using Endjin.SpecFlow.Selenium.Framework.Navigation;
@@ -77,6 +78,11 @@
                                UriComponents.AbsoluteUri,
                                UriFormat.UriEscaped,
                                StringComparison.InvariantCultureIgnoreCase) == 0;
+        }
+
+        public TSectionModel Section<TSectionModel>() where TSectionModel : class, ISectionModel
+        {
+            return this.Sections.FirstOrDefault(section => section.GetType() == typeof(TSectionModel)).Value.As<TSectionModel>();
         }
 
         protected void ClearAndType(IWebElement element, string value)

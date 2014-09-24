@@ -35,5 +35,7 @@
         bool IsValid(string expectedUrl);
 
         bool ContainsText(string text);
+
+        TSectionModel Section<TSectionModel>() where TSectionModel : class, ISectionModel;
     }
 }
