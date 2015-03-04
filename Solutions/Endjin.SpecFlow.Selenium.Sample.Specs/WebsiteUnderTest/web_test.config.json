@@ -1,0 +1,19 @@
+﻿{
+"web_app_name": "Endjin.SpecFlow.Selenium.Sample.Web",
+"website_url": "http://localhost:1727/",
+"auto_start_iis": true,
+"hide_iis": false,
+"delay_close": 0,
+"web_driver_type": "Chrome",
+"hide_command_prompt_window":  false,
+"accept_untrusted_certificates": true,
+"implicitly_wait": 30,
+"page_load_timeout": 30,
+"script_timeout": 3600,
+"remote_browser": "chrome",
+"remote_browser_version": "34",
+"remote_url": "http://ondemand.saucelabs.com:80/wd/hub",
+"remote_key": "c775e9de-7aed-402a-8e24-0ad91f83f6a3",
+"remote_platform": "Windows 7",
+"remote_username": "foobar"
+}

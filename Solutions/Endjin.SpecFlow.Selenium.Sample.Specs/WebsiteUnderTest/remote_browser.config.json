@@ -1,0 +1,17 @@
+﻿[
+    {
+        "platform":"Windows 8",
+        "browser":"chrome",
+        "browser-version":"34"
+    },
+    {
+        "platform":"OS X 10.9",
+        "browser":"firefox",
+        "browser-version":"29"
+    },
+    {
+        "platform":"Windows 7",
+        "browser":"internet explorer",
+        "browser-version":"11"
+    }
+]
