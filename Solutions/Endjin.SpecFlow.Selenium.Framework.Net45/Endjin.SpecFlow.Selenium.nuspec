@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
     <id>Endjin.SpecFlow.Selenium</id>
-    <version>1.0.0.0</version>
+    <version>2.0.0.0</version>
     <title>Endjin SpecFlow Selenium Web UI Testing Framework</title>
     <authors>Endjin</authors>
     <owners>Endjin</owners>
