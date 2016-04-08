@@ -13,7 +13,7 @@
 "remote_browser": "chrome",
 "remote_browser_version": "34",
 "remote_url": "http://ondemand.saucelabs.com:80/wd/hub",
-"remote_key": "c775e9de-7aed-402a-8e24-0ad91f83f6a3",
+"remote_key": "",
 "remote_platform": "Windows 7",
-"remote_username": "foobar"
+"remote_username": ""
 }

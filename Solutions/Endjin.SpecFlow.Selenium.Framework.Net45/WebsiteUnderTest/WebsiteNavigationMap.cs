@@ -15,7 +15,7 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
         // Maps the type to the name, slug, and shared sections contained on the page if any.
         protected override void MapPages()
         {
-            this.AddPage<HomePageModel>(this.HomePageName, string.Empty);
+            //this.AddPage<HomePageModel>(this.HomePageName, string.Empty);
         }
 
         public static class Page
