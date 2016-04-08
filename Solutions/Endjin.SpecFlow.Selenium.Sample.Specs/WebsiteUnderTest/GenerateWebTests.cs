@@ -55,4 +55,39 @@ namespace Endjin.SpecFlow.Selenium.Framework
     }
 }
 
+namespace  Endjin.SpecFlow.Selenium.Sample.Specs.Features
+{
+    #region Using Directives
+    
+    using System.Diagnostics;
+    using NUnit.Framework;
+    using TechTalk.SpecFlow;
+    using Endjin.SpecFlow.Selenium.Framework;
+    using Endjin.SpecFlow.Selenium.Framework.Features;
+
+    #endregion
+
+        public partial class  HomeFeature : BrowserTestFeature
+        {
+            public  HomeFeature()
+            {
+            }
+
+            public  HomeFeature(string platform, string browser, string browserVersion)
+                : base(platform, browser, browserVersion)
+            {
+            }
+        }
+        public partial class  RegisterFeature : BrowserTestFeature
+        {
+            public  RegisterFeature()
+            {
+            }
+
+            public  RegisterFeature(string platform, string browser, string browserVersion)
+                : base(platform, browser, browserVersion)
+            {
+            }
+        }
+}
 
