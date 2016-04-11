@@ -157,7 +157,9 @@
     <Content Include="WebsiteUnderTest\web_test.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="tools\install.ps1" />
+    <Content Include="tools\install.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="WebsiteUnderTest\ReadMe.txt">
