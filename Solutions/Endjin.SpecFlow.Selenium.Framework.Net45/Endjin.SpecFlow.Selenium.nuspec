@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
     <id>Endjin.SpecFlow.Selenium</id>
-    <version>1.0.0.0</version>
+    <version>2.0.0.0</version>
     <title>Endjin SpecFlow Selenium Web UI Testing Framework</title>
     <authors>Endjin</authors>
     <owners>Endjin</owners>
@@ -11,21 +11,21 @@
     <description>Endjin's SpecFlow and Selenium testing framework for smart automated web UI tests development.</description>
     <iconUrl>https://raw.githubusercontent.com/endjin/Endjin.SpecFlow.Selenium/master/Artefacts/Endjin.SpecFlow.Selenium-icon-48px.png</iconUrl>
     <dependencies>
-      <dependency id="Clarius.TransformOnBuild" version="1.1.1" />
-      <dependency id="Endjin.Retry" version="1.0.0.41" />
-      <dependency id="Newtonsoft.Json" version="6.0.3" />
-      <dependency id="NUnit" version="2.6.3" />
-      <dependency id="PhantomJS" version="1.9.7" />
-      <dependency id="Selenium.Support" version="2.42.0" />
-      <dependency id="Selenium.WebDriver" version="2.42.0" />
+      <dependency id="Clarius.TransformOnBuild" version="1.1.12" />
+      <dependency id="Endjin.Retry" version="1.0.0.50" />
+      <dependency id="Newtonsoft.Json" version="8.0.2" />
+      <dependency id="NUnit" version="3.0.1" />
+      <dependency id="PhantomJS" version="2.1.1" />
+      <dependency id="Selenium.Support" version="2.53.0" />
+      <dependency id="Selenium.WebDriver" version="2.53.0" />
       <dependency id="Should" version="1.1.20" />
-      <dependency id="SpecFlow" version="1.9.0" />
-      <dependency id="SpecFlow.NUnit" version="1.1.1" />
-      <dependency id="WebDriver.ChromeDriver.win32" version="2.10.0" />
+      <dependency id="SpecFlow" version="2.0.0" />
+      <dependency id="SpecFlow.NUnit" version="2.0.0" />
+      <dependency id="WebDriver.ChromeDriver.win32" version="2.21.0.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="License.txt" target="License.txt" />
+    <file src="install.ps1" target="tools" />
     <file src="EndjinSpecFlowSeleniumFrameworkNet45.dll" target="lib\net45-full\" />
     <file src="EndjinSpecFlowSeleniumFrameworkNet45.pdb" target="lib\net45-full\" />
     <file src="WebsiteUnderTest\*.*" target="Content\WebsiteUnderTest" />

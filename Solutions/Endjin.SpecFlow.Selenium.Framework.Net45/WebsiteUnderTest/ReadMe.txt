@@ -1,4 +1,27 @@
-﻿<!-- The name of the web application (in the current solution) that is under test -->
+﻿
+************
+
+Instructions
+
+************
+
+1. Create Page Model and Page View classes for the pages you want to test, inheriting from PageModel and PageView.
+e.g. 
+public class RegisterPageModel : PageModel<RegisterPageView>
+public class RegisterPageView : PageView
+
+SpecFlow step definitions will use these classes to interact with the pages.
+e.g. 
+var page = Navigator.Browser.CurrentPage.As<RegisterPageModel>();
+page.EnterPassword(password);
+
+2. Add details of the pages you want to test in the WebsiteNavigationMap class. 
+e.g.
+this.AddPage<RegisterPageModel>(Page.Register, "Account/Register");
+
+3. Edit the web_test.config.json file to configure the application under test, test browser, and other test settings.
+
+<!-- The name of the web application (in the current solution) that is under test -->
 "web_app_name": "web_app_project_name"
 
 <!-- Websites -->
@@ -22,7 +45,7 @@ Useful when trying to view the browser test just before it closes -->
 "delay_close": 0,
 
 <!-- Possible Values (PhantomJs by default):
-Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari -->
+Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari. Set to Remote if you want to run tests through Sauce Labs -->
 "web_driver_type": "Default",
 
 <!-- WebDrivers config -->
@@ -33,7 +56,7 @@ Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari -->
 
 <!-- Remote Driver Configuration
 For a list of available remote browser, version and platforms:
-https://saucelabs.com/platforms -->
+https://saucelabs.com/platforms. Remote driver configuration is only used if the web_driver_type is set to Remote -->
 "remote_browser": "chrome",
 "remote_browser_version": "34",
 "remote_url": "http://ondemand.saucelabs.com:80/wd/hub",

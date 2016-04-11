@@ -12,6 +12,8 @@
 
     using Newtonsoft.Json;
 
+    using NUnit.Framework;
+
     #endregion
 
     public class TestEnvironment
@@ -42,7 +44,7 @@
 
         private TestEnvironment()
         {
-            var config = new FileInfo(@"WebsiteUnderTest\web_test.config.json");
+            var config = new FileInfo(TestContext.CurrentContext.TestDirectory + @"\WebsiteUnderTest\web_test.config.json");
             var json = File.ReadAllText(config.FullName);
 
             this.settings = JsonConvert.DeserializeObject<WebTestSettings>(json);
