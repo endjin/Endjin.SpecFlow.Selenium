@@ -44,7 +44,12 @@
 
         private TestEnvironment()
         {
-            var config = new FileInfo(TestContext.CurrentContext.TestDirectory + @"\WebsiteUnderTest\web_test.config.json");
+            FileInfo config = new FileInfo(@"WebsiteUnderTest\web_test.config.json");
+            if (!config.Exists)
+            { 
+                config = new FileInfo(TestContext.CurrentContext.TestDirectory + @"\WebsiteUnderTest\web_test.config.json");
+            }
+            
             var json = File.ReadAllText(config.FullName);
 
             this.settings = JsonConvert.DeserializeObject<WebTestSettings>(json);
