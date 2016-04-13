@@ -9,7 +9,7 @@
   "implicitly_wait": 30,
   "page_load_timeout": 30,
   "script_timeout": 3600,
-  "local_auto_start_iis": true,
+  "local_auto_start_iis": false,
   "local_hide_iis": false,
   "remote_browser": "chrome",
   "remote_browser_version": "34",
