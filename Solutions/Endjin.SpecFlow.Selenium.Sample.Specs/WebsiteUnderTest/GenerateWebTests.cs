@@ -21,7 +21,7 @@ namespace Endjin.SpecFlow.Selenium.Framework
         [BeforeFeature]
         public static void FeatureSetup()
         {
-			if (TestEnvironment.Current.RunLocally && TestEnvironment.Current.AutoStartIIS)
+			if (TestEnvironment.Current.IsLocal && TestEnvironment.Current.LocalAutoStartIIS)
 			{
 				TestEnvironment.Current.StartWebsite();
 			}

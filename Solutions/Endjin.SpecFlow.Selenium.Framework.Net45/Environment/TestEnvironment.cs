@@ -58,7 +58,7 @@
             }
         }
 
-        public bool AutoStartIIS
+        public bool LocalAutoStartIIS
         {
             get
             {
@@ -74,7 +74,7 @@
             }
         }
 
-        public bool HideIIS
+        public bool LocalHideIIS
         {
             get
             {
@@ -219,7 +219,7 @@
         {
             get
             {
-                if (IsOnBuildServer && !this.RunLocally)
+                if (IsOnBuildServer && this.RunUsingSauceLabs)
                 {
                     // Run tests using a remote driver (e.g. tests are running against Sauce Labs).
                     return WebDriverType.Remote;
@@ -246,9 +246,9 @@
             set;
         }
 
-        public bool RunLocally
+        public bool RunUsingSauceLabs
         {
-            get { return this.settings.RunLocally ?? true; }
+            get { return this.settings.RunUsingSauceLabs ?? false; }
         }
 
         public string Description
@@ -259,11 +259,12 @@
 
                 sb.AppendLine("WebAppName" + this.WebAppName);
                 sb.AppendLine("WebsiteUrl = " + this.WebsiteUrl);
+                sb.AppendLine("RunUsingSauceLabs = " + this.RunUsingSauceLabs);
                 sb.AppendLine("WebDriverType = " + this.WebDriverType);
                 sb.AppendLine("IsRemote" + this.IsRemote);
                 sb.AppendLine("IsLocal" + this.IsLocal);
-                sb.AppendLine("AutoStartIIS" + this.AutoStartIIS);
-                sb.AppendLine("HideIIS" + this.HideIIS);
+                sb.AppendLine("LocalAutoStartIIS" + this.LocalAutoStartIIS);
+                sb.AppendLine("LocalHideIIS" + this.LocalHideIIS);
                 sb.AppendLine("DelayClose" + this.DelayClose);
                 sb.AppendLine("AcceptUntrustedCertificates" + this.AcceptUntrustedCertificates);
                 sb.AppendLine("ImplicitlyWait = " + this.ImplicitlyWait);
@@ -324,11 +325,11 @@
                               FileName = string.Format("{0}\\IIS Express\\iisexpress.exe", programFiles),
                               Arguments = string.Format("/path:\"{0}\" /port:{1}", path, port),
                               WindowStyle =
-                                      this.HideIIS
+                                      this.LocalHideIIS
                                               ? ProcessWindowStyle.Hidden
                                               : ProcessWindowStyle.Normal,
                               ErrorDialog = true,
-                              CreateNoWindow = this.HideIIS,
+                              CreateNoWindow = this.LocalHideIIS,
                               UseShellExecute = false
                       };
 
@@ -353,7 +354,7 @@
 
             try
             {
-                if (this.HideIIS)
+                if (this.LocalHideIIS)
                 {
                     // If we don't have a window, we have to 'kill' the process.
                     this.iis.Kill();

@@ -2,7 +2,7 @@
   "web_app_name": "Endjin.SpecFlow.Selenium.Sample.Web",
   "website_url": "http://localhost:1727/",
   "web_driver_type": "Chrome",
-  "run_locally": true,
+  "run_using_sauce_labs": false,
   "delay_close": 0,
   "hide_command_prompt_window": false,
   "accept_untrusted_certificates": true,

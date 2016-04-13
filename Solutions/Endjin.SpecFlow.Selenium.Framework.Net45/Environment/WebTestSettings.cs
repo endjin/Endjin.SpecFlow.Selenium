@@ -36,8 +36,8 @@
             set;
         }
 
-        [JsonProperty("run_locally")]
-        public bool? RunLocally
+        [JsonProperty("run_using_sauce_labs")]
+        public bool? RunUsingSauceLabs
         {
             get;
             set;
