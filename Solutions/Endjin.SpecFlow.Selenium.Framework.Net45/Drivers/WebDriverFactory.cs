@@ -31,7 +31,7 @@
         private static IWebDriver Chrome(NavigatorSessionParameters session)
         {
             var service = ChromeDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
+            service.HideCommandPromptWindow = session.LocalHideCommandPromptWindow;
 
             return new ChromeDriver(service, new ChromeOptions());
         }
@@ -96,7 +96,7 @@
         private static IWebDriver InternetExplorer(NavigatorSessionParameters session)
         {
             var service = InternetExplorerDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
+            service.HideCommandPromptWindow = session.LocalHideCommandPromptWindow;
 
             return new InternetExplorerDriver(service, new InternetExplorerOptions());
         }
@@ -117,21 +117,21 @@
         private static IWebDriver PhantomJs(NavigatorSessionParameters session)
         {
             var service = PhantomJSDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
+            service.HideCommandPromptWindow = session.LocalHideCommandPromptWindow;
 
             return new PhantomJSDriver(service, new PhantomJSOptions());
         }
 
         private static IWebDriver RemoteDriver(NavigatorSessionParameters session)
         {
-            var remoteAddress = new Uri(session.RemoteDriverUrl);
+            var remoteAddress = new Uri(session.SauceLabsRemoteDriverUrl);
 
-            var capabilities = GetDefaultCapabilities(session.RemoteBrowser);
+            var capabilities = GetDefaultCapabilities(session.SauceLabsRemoteBrowser);
 
-            capabilities.SetCapability(CapabilityType.Platform, session.RemotePlatform);
-            capabilities.SetCapability(CapabilityType.Version, session.RemoteBrowserVersion);
-            capabilities.SetCapability(CapabilityTypeExt.Username, session.RemoteUsername);
-            capabilities.SetCapability(CapabilityTypeExt.AccessKey, session.RemoteKey);
+            capabilities.SetCapability(CapabilityType.Platform, session.SauceLabsRemotePlatform);
+            capabilities.SetCapability(CapabilityType.Version, session.SauceLabsRemoteBrowserVersion);
+            capabilities.SetCapability(CapabilityTypeExt.Username, session.SauceLabsRemoteUsername);
+            capabilities.SetCapability(CapabilityTypeExt.AccessKey, session.SauceLabsRemoteKey);
             capabilities.SetCapability(CapabilityTypeExt.TestName, TestContext.CurrentContext.Test.Name);
 
             if (session.AcceptUntrustedCertificates)

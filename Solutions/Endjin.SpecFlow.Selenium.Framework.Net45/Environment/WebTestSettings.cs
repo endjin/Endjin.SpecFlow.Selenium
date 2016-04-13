@@ -29,8 +29,8 @@
             set;
         }
 
-        [JsonProperty("hide_command_prompt_window")]
-        public bool? HideCommandPromptWindow
+        [JsonProperty("local_hide_command_prompt_window")]
+        public bool? LocalHideCommandPromptWindow
         {
             get;
             set;
@@ -64,43 +64,43 @@
             set;
         }
 
-        [JsonProperty("remote_browser")]
-        public string RemoteBrowser
+        [JsonProperty("sauce_labs_remote_browser")]
+        public string SauceLabsRemoteBrowser
         {
             get;
             set;
         }
 
-        [JsonProperty("remote_browser_version")]
-        public string RemoteBrowserVersion
+        [JsonProperty("sauce_labs_remote_browser_version")]
+        public string SauceLabsRemoteBrowserVersion
         {
             get;
             set;
         }
 
-        [JsonProperty("remote_key")]
-        public string RemoteKey
+        [JsonProperty("sauce_labs_remote_key")]
+        public string SauceLabsRemoteKey
         {
             get;
             set;
         }
 
-        [JsonProperty("remote_platform")]
-        public string RemotePlatform
+        [JsonProperty("sauce_labs_remote_platform")]
+        public string SauceLabsRemotePlatform
         {
             get;
             set;
         }
 
-        [JsonProperty("remote_url")]
-        public string RemoteUrl
+        [JsonProperty("sauce_labs_remote_url")]
+        public string SauceLabsRemoteUrl
         {
             get;
             set;
         }
 
-        [JsonProperty("remote_username")]
-        public string RemoteUsername
+        [JsonProperty("sauce_labs_remote_username")]
+        public string SauceLabsRemoteUsername
         {
             get;
             set;

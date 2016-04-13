@@ -30,9 +30,9 @@
 
         private Process iis;
 
-        private string remoteBrowser;
+        private string sauceLabsRemoteBrowser;
 
-        private string remoteBrowserVersion;
+        private string sauceLabsRemoteBrowserVersion;
 
         private string remotePlatform;
 
@@ -59,15 +59,7 @@
         {
             get
             {
-                try
-                {
-                    return instance ?? (instance = new TestEnvironment());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                return new TestEnvironment();
+                return instance ?? (instance = new TestEnvironment());
             }
         }
 
@@ -95,11 +87,11 @@
             }
         }
 
-        public bool HideCommandPromptWindow
+        public bool LocalHideCommandPromptWindow
         {
             get
             {
-                return this.settings.HideCommandPromptWindow ?? false;
+                return this.settings.LocalHideCommandPromptWindow ?? false;
             }
         }
 
@@ -136,57 +128,57 @@
             }
         }
 
-        public string RemoteBrowser
+        public string SauceLabsRemoteBrowser
         {
             get
             {
-                if (!this.remoteBrowser.IsNullOrEmpty())
+                if (!this.sauceLabsRemoteBrowser.IsNullOrEmpty())
                 {
-                    return this.remoteBrowser;
+                    return this.sauceLabsRemoteBrowser;
                 }
 
-                return this.settings.RemoteBrowser ?? "internet explorer";
+                return this.settings.SauceLabsRemoteBrowser ?? "internet explorer";
             }
             private set
             {
-                this.remoteBrowser = value;
+                this.sauceLabsRemoteBrowser = value;
             }
         }
 
-        public string RemoteBrowserVersion
+        public string SauceLabsRemoteBrowserVersion
         {
             get
             {
-                if (!this.remoteBrowserVersion.IsNullOrEmpty())
+                if (!this.sauceLabsRemoteBrowserVersion.IsNullOrEmpty())
                 {
-                    return this.remoteBrowserVersion;
+                    return this.sauceLabsRemoteBrowserVersion;
                 }
 
-                return this.settings.RemoteBrowserVersion ?? "11";
+                return this.settings.SauceLabsRemoteBrowserVersion ?? "11";
             }
             private set
             {
-                this.remoteBrowserVersion = value;
+                this.sauceLabsRemoteBrowserVersion = value;
             }
         }
 
-        public string RemoteUrl
+        public string SauceLabsRemoteUrl
         {
             get
             {
-                return this.settings.RemoteUrl;
+                return this.settings.SauceLabsRemoteUrl;
             }
         }
 
-        public string RemoteKey
+        public string SauceLabsRemoteKey
         {
             get
             {
-                return Environment.GetEnvironmentVariable(TeamCitySauceApiKey) ?? this.settings.RemoteKey;
+                return Environment.GetEnvironmentVariable(TeamCitySauceApiKey) ?? this.settings.SauceLabsRemoteKey;
             }
         }
 
-        public string RemotePlatform
+        public string SauceLabsRemotePlatform
         {
             get
             {
@@ -195,7 +187,7 @@
                     return this.remotePlatform;
                 }
 
-                return this.settings.RemotePlatform ?? "Windows 7";
+                return this.settings.SauceLabsRemotePlatform ?? "Windows 7";
             }
 
             private set
@@ -204,11 +196,11 @@
             }
         }
 
-        public string RemoteUsername
+        public string SauceLabsRemoteUsername
         {
             get
             {
-                return Environment.GetEnvironmentVariable(TeamCitySauceUserName) ?? this.settings.RemoteUsername;
+                return Environment.GetEnvironmentVariable(TeamCitySauceUserName) ?? this.settings.SauceLabsRemoteUsername;
             }
         }
 
@@ -232,10 +224,13 @@
         {
             get
             {
-                if (IsOnBuildServer && this.RunUsingSauceLabs)
+                if (this.RunUsingSauceLabs)
                 {
-                    // Run tests using a remote driver (e.g. tests are running against Sauce Labs).
                     return WebDriverType.Remote;
+                }
+                if (IsOnBuildServer && !this.RunUsingSauceLabs)
+                {
+                    return WebDriverType.PhantomJs;
                 }
 
                 var value = this.settings.WebDriverType;
@@ -283,12 +278,12 @@
                 sb.AppendLine("ImplicitlyWait = " + this.ImplicitlyWait);
                 sb.AppendLine("PageLoadTimeout = " + this.PageLoadTimeout);
                 sb.AppendLine("ScriptTimeout = " + this.ScriptTimeout);
-                sb.AppendLine("RemoteBrowser = " + this.RemoteBrowser);
-                sb.AppendLine("RemoteBrowserVersion = " + this.RemoteBrowserVersion);
-                sb.AppendLine("RemotePlatform = " + this.RemotePlatform);
-                sb.AppendLine("RemoteDriverUrl = " + this.RemoteUrl);
-                sb.AppendLine("RemoteUsername = " + this.RemoteUsername);
-                sb.AppendLine("RemoteKey = " + this.RemoteKey);
+                sb.AppendLine("SauceLabsRemoteBrowser = " + this.SauceLabsRemoteBrowser);
+                sb.AppendLine("SauceLabsRemoteBrowserVersion = " + this.SauceLabsRemoteBrowserVersion);
+                sb.AppendLine("SauceLabsRemotePlatform = " + this.SauceLabsRemotePlatform);
+                sb.AppendLine("SauceLabsRemoteDriverUrl = " + this.SauceLabsRemoteUrl);
+                sb.AppendLine("SauceLabsRemoteUsername = " + this.SauceLabsRemoteUsername);
+                sb.AppendLine("SauceLabsRemoteKey = " + this.SauceLabsRemoteKey);
 
                 return sb.ToString();
             }
@@ -304,9 +299,9 @@
 
         public void SetRemoteBrowserContext(string platform, string browser, string browserVersion)
         {
-            this.RemotePlatform = platform;
-            this.RemoteBrowser = browser;
-            this.RemoteBrowserVersion = browserVersion;
+            this.SauceLabsRemotePlatform = platform;
+            this.SauceLabsRemoteBrowser = browser;
+            this.SauceLabsRemoteBrowserVersion = browserVersion;
         }
 
         public void StartWebsite()

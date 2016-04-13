@@ -45,7 +45,7 @@ Useful when trying to view the browser test just before it closes -->
 "delay_close": 0,
 
 <!-- Possible Values (PhantomJs by default):
-Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari. Set to Remote if you want to run tests through Sauce Labs -->
+Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari. If run_using_sauce_labs is true, this gets set to Remote. If run_using_sauce_labs is false but the tests are running on a build server, this gets set to PhantomJS -->
 "web_driver_type": "Default",
 
 <!-- WebDrivers config -->
@@ -54,12 +54,13 @@ Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari. Set to Re
 "page_load_timeout": 30,
 "script_timeout": 3600,
 
-<!-- Remote Driver Configuration
+<!-- Sauce Labs Remote Driver Configuration
 For a list of available remote browser, version and platforms:
-https://saucelabs.com/platforms. Remote driver configuration is only used if the web_driver_type is set to Remote -->
-"remote_browser": "chrome",
-"remote_browser_version": "34",
-"remote_url": "http://ondemand.saucelabs.com:80/wd/hub",
-"remote_key": "c775e9de-7aed-402a-8e24-0ad91f83f6a3",
-"remote_platform": "Windows 7",
-"remote_username": "foobar"
+https://saucelabs.com/platforms.  -->
+"run_using_sauce_labs" : true
+"sauce_labs_remote_browser": "chrome",
+"sauce_labs_remote_browser_version": "34",
+"sauce_labs_remote_url": "http://ondemand.saucelabs.com:80/wd/hub",
+"sauce_labs_remote_key": "Your key",
+"sauce_labs_remote_platform": "Windows 7",
+"sauce_labs_remote_username": "Your username"
