@@ -35,10 +35,10 @@ this.AddPage<RegisterPageModel>(Page.Register, "Account/Register");
 <!-- When set to true, Starts/Stops IIS Express automatically when running a feature;
 when set to false, start website on local machine 'manually' 
 without attaching the debugger before running the tests -->
-"auto_start_iis": true,
+"local_auto_start_iis": true,
 
 <!-- When true, shows the IIS Express process in console window -->
-"hide_iis": false,
+"local_hide_iis": false,
 
 <!-- Pauses the Browser for the specified amount of time (in seconds) before closing; set to 0 for no delay.
 Useful when trying to view the browser test just before it closes -->

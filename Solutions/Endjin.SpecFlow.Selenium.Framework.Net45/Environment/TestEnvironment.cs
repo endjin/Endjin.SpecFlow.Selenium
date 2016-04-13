@@ -62,7 +62,7 @@
         {
             get
             {
-                return this.settings.AutoStartIIS ?? false;
+                return this.settings.LocalAutoStartIIS ?? false;
             }
         }
 
@@ -78,7 +78,7 @@
         {
             get
             {
-                return this.settings.HideIIS ?? false;
+                return this.settings.LocalHideIIS ?? false;
             }
         }
 
@@ -219,7 +219,7 @@
         {
             get
             {
-                if (IsOnBuildServer)
+                if (IsOnBuildServer && !this.RunLocally)
                 {
                     // Run tests using a remote driver (e.g. tests are running against Sauce Labs).
                     return WebDriverType.Remote;
@@ -244,6 +244,11 @@
         {
             get;
             set;
+        }
+
+        public bool RunLocally
+        {
+            get { return this.settings.RunLocally ?? true; }
         }
 
         public string Description

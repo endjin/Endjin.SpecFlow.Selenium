@@ -21,10 +21,10 @@ namespace Endjin.SpecFlow.Selenium.Framework
         [BeforeFeature]
         public static void FeatureSetup()
         {
-            if (TestEnvironment.Current.IsLocal && TestEnvironment.Current.AutoStartIIS)
-            {
-                TestEnvironment.Current.StartWebsite();
-            }
+			if (TestEnvironment.Current.RunLocally && TestEnvironment.Current.AutoStartIIS)
+			{
+				TestEnvironment.Current.StartWebsite();
+			}
         }
 
         [AfterFeature]
@@ -74,17 +74,6 @@ namespace  Endjin.SpecFlow.Selenium.Sample.Specs.Features
             }
 
             public  HomeFeature(string platform, string browser, string browserVersion)
-                : base(platform, browser, browserVersion)
-            {
-            }
-        }
-        public partial class  RegisterFeature : BrowserTestFeature
-        {
-            public  RegisterFeature()
-            {
-            }
-
-            public  RegisterFeature(string platform, string browser, string browserVersion)
                 : base(platform, browser, browserVersion)
             {
             }
