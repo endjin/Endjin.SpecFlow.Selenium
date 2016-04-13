@@ -54,7 +54,15 @@
         {
             get
             {
-                return instance ?? (instance = new TestEnvironment());
+                try
+                {
+                    return instance ?? (instance = new TestEnvironment());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                return new TestEnvironment();
             }
         }
 
