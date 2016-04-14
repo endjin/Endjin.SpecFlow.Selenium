@@ -32,6 +32,13 @@ this.AddPage<RegisterPageModel>(Page.Register, "Account/Register");
 <!-- Test website -->
 "website_url": "http://myteswebsite.com/"
 
+<!-- Whether or not the application under test is a single page application (SPA). 
+If false, the package will set the current page model using the current URL and WebsiteNavigationMap on navigation and element click events. 
+If true, you can still add 'pages' (Page Models and Views) to represent different page states, but the package won't try to set the current page model on navigation or element click events.
+This means SPA 'pages' can be registered in the WebsiteNavigationMap with the same URL.
+The current page model must be set explicitly in your step definitions for a SPA -->
+"single_page_application": false
+
 <!-- When set to true, Starts/Stops IIS Express automatically when running a feature;
 when set to false, start website on local machine 'manually' 
 without attaching the debugger before running the tests -->

@@ -29,14 +29,17 @@
         private static EventFiringWebDriver driver;
 
         private string queryParams;
+        private readonly bool singlePageApplication;
 
-        private Navigator(IWebDriver driver, INavigationMap map)
+        private Navigator(IWebDriver driver, INavigationMap map, bool singlePageApplication)
         {
             var rwd = driver as RemoteDriver;
             this.SessionId = rwd == null ? Guid.NewGuid().ToString() : rwd.GetSessionId();
 
             Navigator.driver = new EventFiringWebDriver(driver);
             this.navigationMap = map;
+
+            this.singlePageApplication = singlePageApplication;
 
             this.SubscribeToEvents();
         }
@@ -109,7 +112,7 @@
 
             var driver = WebDriverFactory.Create(session);
 
-            navigator = new Navigator(driver, session.NavigationMap)
+            navigator = new Navigator(driver, session.NavigationMap, session.SinglePageApplication)
                         {
                                 IsQuietMode =
                                         session.WebDriverType
@@ -312,15 +315,21 @@
         private void OnElementClicked(object sender, WebElementEventArgs e)
         {
             this.Pause(2);
-            var navigated = new Uri(Navigator.driver.Url);
-            this.SetCurrentPage(navigated);
+            if (!this.singlePageApplication)
+            {
+                var navigated = new Uri(Navigator.driver.Url);
+                this.SetCurrentPage(navigated);
+            }
         }
 
         private void OnNavigated(object sender, WebDriverNavigationEventArgs args)
         {
             this.Pause(2);
-            var navigated = new Uri(args.Url);
-            this.SetCurrentPage(navigated);
+            if (!this.singlePageApplication)
+            {
+                var navigated = new Uri(args.Url);
+                this.SetCurrentPage(navigated);
+            }
         }
 
         private void Perform(Func<Actions, Actions> func)

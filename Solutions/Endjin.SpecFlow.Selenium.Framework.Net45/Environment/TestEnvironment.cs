@@ -66,6 +66,14 @@
             }
         }
 
+        public bool SinglePageApplication
+        {
+            get
+            {
+                return this.settings.SinglePageApplication ?? false;
+            }
+        }
+
         public int DelayClose
         {
             get

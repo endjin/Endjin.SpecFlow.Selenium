@@ -22,6 +22,13 @@
             set;
         }
 
+        [JsonProperty("single_page_application")]
+        public bool? SinglePageApplication
+        {
+            get;
+            set;
+        }
+
         [JsonProperty("delay_close")]
         public int? DelayClose
         {
