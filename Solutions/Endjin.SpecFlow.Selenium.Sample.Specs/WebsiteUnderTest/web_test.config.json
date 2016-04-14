@@ -1,6 +1,6 @@
 ﻿{
   "web_app_name": "Endjin.SpecFlow.Selenium.Sample.Web",
-  "website_url": "https://endjin.com",
+  "website_url": "https://endjin.com/",
   "web_driver_type": "PhantomJS",
   "delay_close": 0,
   "accept_untrusted_certificates": true,

@@ -78,16 +78,5 @@ namespace  Endjin.SpecFlow.Selenium.Sample.Specs.Features
             {
             }
         }
-        public partial class  RegisterFeature : BrowserTestFeature
-        {
-            public  RegisterFeature()
-            {
-            }
-
-            public  RegisterFeature(string platform, string browser, string browserVersion)
-                : base(platform, browser, browserVersion)
-            {
-            }
-        }
 }
 
