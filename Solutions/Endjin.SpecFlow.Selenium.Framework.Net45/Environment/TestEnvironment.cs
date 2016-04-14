@@ -44,12 +44,12 @@
 
         private TestEnvironment()
         {
-            var pathToConfig = @"\WebsiteUnderTest\web_test.config.json";
+            var pathToConfig = @"WebsiteUnderTest\web_test.config.json";
             // If tests are running on NUnit > 3.0, use test directory to find files
             // A null check for this directory doesn't suffice as TestContext.CurrentContext.TestDirectory calls get_TestDirectory which throws a null reference exception if it's not set
             try
             {
-                pathToConfig = TestContext.CurrentContext.TestDirectory + pathToConfig;
+                pathToConfig = Path.Combine(TestContext.CurrentContext.TestDirectory, pathToConfig);
             }
             catch (Exception ex)
             {
