@@ -46,7 +46,7 @@
         {
             var pathToConfig = @"\WebsiteUnderTest\web_test.config.json";
             // If tests are running on NUnit > 3.0, files are found in the test directory
-            if (TestContext.CurrentContext.TestDirectory != null)
+            if (TestContext.CurrentContext != null && TestContext.CurrentContext.TestDirectory != null)
             {
                 pathToConfig = TestContext.CurrentContext.TestDirectory + pathToConfig;
             }
