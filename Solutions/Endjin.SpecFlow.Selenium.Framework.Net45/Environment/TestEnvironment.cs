@@ -46,12 +46,12 @@
         {
             var pathToConfig = @"WebsiteUnderTest\web_test.config.json";
             // If tests are running on NUnit > 3.0, use test directory to find files
-            // A null check for this directory doesn't suffice as TestContext.CurrentContext.TestDirectory calls get_TestDirectory which throws a null reference exception if it's not set
+            // A null check for this directory doesn't suffice as null checking TestContext.CurrentContext.TestDirectory throws a null reference exception with older versions of NUnit on TeamCity
             try
             {
                 pathToConfig = Path.Combine(TestContext.CurrentContext.TestDirectory, pathToConfig);
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
                 Console.WriteLine("TestContext.CurrentContext.TestDirectory not found: " + ex.Message);
             }

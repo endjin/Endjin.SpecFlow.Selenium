@@ -32,6 +32,7 @@
                                          ImplicitlyWait = TestEnvironment.Current.ImplicitlyWait,
                                          PageLoadTimeout = TestEnvironment.Current.PageLoadTimeout,
                                          ScriptTimeout = TestEnvironment.Current.ScriptTimeout,
+                                         RunUsingSauceLabs = TestEnvironment.Current.RunUsingSauceLabs,
                                          SauceLabsRemoteBrowser = TestEnvironment.Current.SauceLabsRemoteBrowser,
                                          SauceLabsRemoteBrowserVersion = TestEnvironment.Current.SauceLabsRemoteBrowserVersion,
                                          SauceLabsRemotePlatform = TestEnvironment.Current.SauceLabsRemotePlatform,

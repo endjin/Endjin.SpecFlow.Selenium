@@ -108,8 +108,12 @@
 
             // Note: Issue with SauceLabs. Some platform+browser+version 
             // combinations throw an exception when trying to set this.
-            // var pageLoadTimeout = TimeSpan.FromSeconds(session.PageLoadTimeout);
-            // driver.Manage().Timeouts().SetPageLoadTimeout(pageLoadTimeout);
+            if (!session.RunUsingSauceLabs)
+            {
+                var pageLoadTimeout = TimeSpan.FromSeconds(session.PageLoadTimeout);
+                driver.Manage().Timeouts().SetPageLoadTimeout(pageLoadTimeout);
+            }
+
             var scriptTimeout = TimeSpan.FromSeconds(session.ScriptTimeout);
             driver.Manage().Timeouts().SetScriptTimeout(scriptTimeout);
         }
