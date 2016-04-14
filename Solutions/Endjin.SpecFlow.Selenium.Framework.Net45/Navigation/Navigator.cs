@@ -26,7 +26,7 @@
 
         private static Navigator navigator;
 
-        private EventFiringWebDriver driver;
+        private static EventFiringWebDriver driver;
 
         private string queryParams;
 
@@ -35,10 +35,22 @@
             var rwd = driver as RemoteDriver;
             this.SessionId = rwd == null ? Guid.NewGuid().ToString() : rwd.GetSessionId();
 
-            this.driver = new EventFiringWebDriver(driver);
+            Navigator.driver = new EventFiringWebDriver(driver);
             this.navigationMap = map;
 
             this.SubscribeToEvents();
+        }
+
+        public static EventFiringWebDriver Driver
+        {
+            get
+            {
+                if (Navigator.driver == null)
+                {
+                    throw new InvalidOperationException("driver == null");
+                }
+                return Navigator.driver;
+            }
         }
 
         public static Navigator Browser
@@ -72,7 +84,7 @@
         {
             get
             {
-                return this.driver == null ? string.Empty : this.driver.Url;
+                return Navigator.driver == null ? string.Empty : Navigator.driver.Url;
             }
         }
 
@@ -107,7 +119,7 @@
 
         public void Bind(IWebView page)
         {
-            PageFactory.InitElements(this.driver, page);
+            PageFactory.InitElements(Navigator.driver, page);
         }
 
         public void BuildQueryParameters(string format, params string[] parameters)
@@ -128,7 +140,7 @@
 
         public void Close()
         {
-            if (this.driver == null)
+            if (Navigator.driver == null)
             {
                 return;
             }
@@ -137,7 +149,7 @@
 
             try
             {
-                this.driver.Close();
+                Navigator.driver.Close();
             }
             catch (Exception ex)
             {
@@ -148,8 +160,8 @@
             finally
             {
                 // Quit() calls Dispose() and sends a DriverCommand.Quit command for RemoteWebDrivers.
-                this.driver.Quit();
-                this.driver = null;
+                Navigator.driver.Quit();
+                Navigator.driver = null;
             }
         }
 
@@ -165,13 +177,13 @@
 
         public void DragAndDrop(IWebElement fromElement, IWebElement toElement)
         {
-            var actions = new Actions(this.driver);
+            var actions = new Actions(Navigator.driver);
             actions.DragAndDrop(fromElement, toElement).Build().Perform();
         }
 
         public object Execute(string script, params object[] args)
         {
-            return this.driver.ExecuteScript(script, args);
+            return Navigator.driver.ExecuteScript(script, args);
         }
 
         public IPageModel GoToHomePage()
@@ -189,27 +201,27 @@
                 url += "?" + this.queryParams;
             }
 
-            var navigation = this.driver.Navigate();
+            var navigation = Navigator.driver.Navigate();
             navigation.GoToUrl(url);
 
             var page = this.navigationMap.GetPage(pageName);
 
             this.CurrentPage = page;
-            this.CurrentPage.Title = this.driver.Title;
+            this.CurrentPage.Title = Navigator.driver.Title;
 
             return page;
         }
 
         public T GoToPageByUrl<T>(string url) where T : IPageModel, new()
         {
-            var navigation = this.driver.Navigate();
+            var navigation = Navigator.driver.Navigate();
             navigation.GoToUrl(url);
 
             // GoToUrl is blocking => page should be loaded.
-            var page = new T { Url = this.driver.Url };
+            var page = new T { Url = Navigator.driver.Url };
 
             this.CurrentPage = page;
-            this.CurrentPage.Title = this.driver.Title;
+            this.CurrentPage.Title = Navigator.driver.Title;
 
             return page;
         }
@@ -242,7 +254,7 @@
 
         public void MaximizeWindow()
         {
-            this.driver.Manage().Window.Maximize();
+            Navigator.driver.Manage().Window.Maximize();
         }
 
         public void Pause(int delay = 5)
@@ -258,25 +270,25 @@
 
         public void ScrollToBottom()
         {
-            this.driver.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
+            Navigator.driver.ExecuteScript("window.scrollTo(0, document.body.scrollHeight);");
         }
 
         public void ScrollToElement(IWebElement element)
         {
-            this.driver.ExecuteScript("window.scrollTo(0, " + element.Location.Y + ");");
+            Navigator.driver.ExecuteScript("window.scrollTo(0, " + element.Location.Y + ");");
         }
 
         public void SelectTab(int tabIndex)
         {
-            var tab = this.driver.WindowHandles[tabIndex];
-            this.driver.SwitchTo().Window(tab);
+            var tab = Navigator.driver.WindowHandles[tabIndex];
+            Navigator.driver.SwitchTo().Window(tab);
         }
 
         public void TakeScreenshot(string fileName)
         {
             try
             {
-                var screenshot = this.driver.TakeScreenshot();
+                var screenshot = Navigator.driver.TakeScreenshot();
                 screenshot.SaveAsFile(fileName, ImageFormat.Png);
             }
             catch (Exception ex)
@@ -300,7 +312,7 @@
         private void OnElementClicked(object sender, WebElementEventArgs e)
         {
             this.Pause(2);
-            var navigated = new Uri(this.driver.Url);
+            var navigated = new Uri(Navigator.driver.Url);
             this.SetCurrentPage(navigated);
         }
 
@@ -313,7 +325,7 @@
 
         private void Perform(Func<Actions, Actions> func)
         {
-            var actions = new Actions(this.driver);
+            var actions = new Actions(Navigator.driver);
             func(actions).Build().Perform();
         }
 
@@ -323,7 +335,7 @@
             {
                 // Moved setting title above the URI comparison to cover cases where we are 
                 // detecting a server error by the page title though the URI is the same.
-                this.CurrentPage.Title = this.driver.Title;
+                this.CurrentPage.Title = Navigator.driver.Title;
 
                 var current = new Uri(this.CurrentPage.Url);
 
@@ -344,21 +356,21 @@
             // and page name are known? If so, add a mapping.
             this.navigationMap.MapIfNewKnownPageType(navigated);
             this.CurrentPage = this.navigationMap.GetPage(navigated);
-            this.CurrentPage.Title = this.driver.Title;
+            this.CurrentPage.Title = Navigator.driver.Title;
         }
 
         private void SubscribeToEvents()
         {
-            this.driver.ExceptionThrown += OnExceptionThrown;
-            this.driver.Navigated += this.OnNavigated;
-            this.driver.ElementClicked += this.OnElementClicked;
+            Navigator.driver.ExceptionThrown += OnExceptionThrown;
+            Navigator.driver.Navigated += this.OnNavigated;
+            Navigator.driver.ElementClicked += this.OnElementClicked;
         }
 
         private void UnsubscribeToEvents()
         {
-            this.driver.ExceptionThrown -= OnExceptionThrown;
-            this.driver.Navigated -= this.OnNavigated;
-            this.driver.ElementClicked -= this.OnElementClicked;
+            Navigator.driver.ExceptionThrown -= OnExceptionThrown;
+            Navigator.driver.Navigated -= this.OnNavigated;
+            Navigator.driver.ElementClicked -= this.OnElementClicked;
         }
     }
 }
