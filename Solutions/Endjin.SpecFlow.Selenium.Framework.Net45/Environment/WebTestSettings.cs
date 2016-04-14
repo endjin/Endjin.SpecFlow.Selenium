@@ -15,8 +15,8 @@
             set;
         }
 
-        [JsonProperty("local_auto_start_iis")]
-        public bool? LocalAutoStartIIS
+        [JsonProperty("auto_start_local_iis")]
+        public bool? AutoStartLocalIIS
         {
             get;
             set;
@@ -29,8 +29,8 @@
             set;
         }
 
-        [JsonProperty("local_hide_command_prompt_window")]
-        public bool? LocalHideCommandPromptWindow
+        [JsonProperty("hide_command_prompt_window")]
+        public bool? HideCommandPromptWindow
         {
             get;
             set;
@@ -43,8 +43,8 @@
             set;
         }
 
-        [JsonProperty("local_hide_iis")]
-        public bool? LocalHideIIS
+        [JsonProperty("hide_local_iis")]
+        public bool? HideLocalIIS
         {
             get;
             set;

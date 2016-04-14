@@ -31,7 +31,7 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             set;
         }
 
-        public bool LocalHideCommandPromptWindow
+        public bool HideCommandPromptWindow
         {
             get;
             set;

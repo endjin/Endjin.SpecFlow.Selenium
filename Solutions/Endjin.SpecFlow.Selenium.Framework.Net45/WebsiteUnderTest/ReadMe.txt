@@ -41,10 +41,10 @@ Configuration
 <!-- When set to true, Starts/Stops IIS Express automatically when running a feature;
 when set to false, start website on local machine 'manually', or point to a deployed version of the site 
 without attaching the debugger before running the tests -->
-"local_auto_start_iis": true,
+"auto_start_local_iis": true,
 
 <!-- When true, shows the IIS Express process in console window -->
-"local_hide_iis": false,
+"hide_local_iis": false,
 
 <!-- Pauses the Browser for the specified amount of time (in seconds) before closing; set to 0 for no delay.
 Useful when trying to view the browser test just before it closes -->
@@ -91,9 +91,9 @@ Tests can be run in three ways:
   "implicitly_wait": 30,
   "page_load_timeout": 30,
   "script_timeout": 3600,
-  "local_auto_start_iis": true,
-  "local_hide_iis": false,
-  "local_hide_command_prompt_window": false,
+  "auto_start_local_iis": true,
+  "hide_local_iis": false,
+  "hide_command_prompt_window": false,
   "run_using_sauce_labs": false,
   "sauce_labs_remote_browser": "",
   "sauce_labs_remote_browser_version": "",
@@ -111,9 +111,9 @@ Tests can be run in three ways:
   "implicitly_wait": 30,
   "page_load_timeout": 30,
   "script_timeout": 3600,
-  "local_auto_start_iis": false,
-  "local_hide_iis": false ,
-  "local_hide_command_prompt_window": false,
+  "auto_start_local_iis": false,
+  "hide_local_iis": false ,
+  "hide_command_prompt_window": false,
   "run_using_sauce_labs": false,
   "sauce_labs_remote_browser": "",
   "sauce_labs_remote_browser_version": "",
@@ -131,9 +131,9 @@ Tests can be run in three ways:
   "implicitly_wait": 30,
   "page_load_timeout": 30,
   "script_timeout": 3600,
-  "local_auto_start_iis": false,
-  "local_hide_iis": false ,
-  "local_hide_command_prompt_window": false,
+  "auto_start_local_iis": false,
+  "hide_local_iis ": false ,
+  "hide_command_prompt_window": false,
   "run_using_sauce_labs": true,
   "sauce_labs_remote_browser": "chrome",
   "sauce_labs_remote_browser_version": "34",

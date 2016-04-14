@@ -63,11 +63,11 @@
             }
         }
 
-        public bool LocalAutoStartIIS
+        public bool AutoStartLocalIIS
         {
             get
             {
-                return this.settings.LocalAutoStartIIS ?? false;
+                return this.settings.AutoStartLocalIIS ?? false;
             }
         }
 
@@ -79,19 +79,19 @@
             }
         }
 
-        public bool LocalHideIIS
+        public bool HideLocalIIS
         {
             get
             {
-                return this.settings.LocalHideIIS ?? false;
+                return this.settings.HideLocalIIS ?? false;
             }
         }
 
-        public bool LocalHideCommandPromptWindow
+        public bool HideCommandPromptWindow
         {
             get
             {
-                return this.settings.LocalHideCommandPromptWindow ?? false;
+                return this.settings.HideCommandPromptWindow ?? false;
             }
         }
 
@@ -271,8 +271,8 @@
                 sb.AppendLine("WebDriverType = " + this.WebDriverType);
                 sb.AppendLine("IsRemote" + this.IsRemote);
                 sb.AppendLine("IsLocal" + this.IsLocal);
-                sb.AppendLine("LocalAutoStartIIS" + this.LocalAutoStartIIS);
-                sb.AppendLine("LocalHideIIS" + this.LocalHideIIS);
+                sb.AppendLine("AutoStartLocalIIS" + this.AutoStartLocalIIS);
+                sb.AppendLine("HideLocalIIS" + this.HideLocalIIS);
                 sb.AppendLine("DelayClose" + this.DelayClose);
                 sb.AppendLine("AcceptUntrustedCertificates" + this.AcceptUntrustedCertificates);
                 sb.AppendLine("ImplicitlyWait = " + this.ImplicitlyWait);
@@ -333,11 +333,11 @@
                               FileName = string.Format("{0}\\IIS Express\\iisexpress.exe", programFiles),
                               Arguments = string.Format("/path:\"{0}\" /port:{1}", path, port),
                               WindowStyle =
-                                      this.LocalHideIIS
+                                      this.HideLocalIIS
                                               ? ProcessWindowStyle.Hidden
                                               : ProcessWindowStyle.Normal,
                               ErrorDialog = true,
-                              CreateNoWindow = this.LocalHideIIS,
+                              CreateNoWindow = this.HideLocalIIS,
                               UseShellExecute = false
                       };
 
@@ -362,7 +362,7 @@
 
             try
             {
-                if (this.LocalHideIIS)
+                if (this.HideLocalIIS)
                 {
                     // If we don't have a window, we have to 'kill' the process.
                     this.iis.Kill();

@@ -28,7 +28,7 @@
                                          NavigationMap = map,
                                          AcceptUntrustedCertificates = TestEnvironment.Current.AcceptUntrustedCertificates,
                                          WebDriverType = TestEnvironment.Current.WebDriverType,
-                                         LocalHideCommandPromptWindow = TestEnvironment.Current.LocalHideCommandPromptWindow,
+                                         HideCommandPromptWindow = TestEnvironment.Current.HideCommandPromptWindow,
                                          ImplicitlyWait = TestEnvironment.Current.ImplicitlyWait,
                                          PageLoadTimeout = TestEnvironment.Current.PageLoadTimeout,
                                          ScriptTimeout = TestEnvironment.Current.ScriptTimeout,
