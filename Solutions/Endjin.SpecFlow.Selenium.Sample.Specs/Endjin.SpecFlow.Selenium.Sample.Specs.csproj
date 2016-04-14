@@ -97,11 +97,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Home.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Register.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Register.feature</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Account\Register\RegisterPageModel.cs" />
     <Compile Include="Pages\Account\Register\RegisterPageView.cs" />
     <Compile Include="Pages\Home\Index\HomePageModel.cs" />
@@ -121,10 +116,6 @@
     <None Include="Features\Home.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Home.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\Register.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Register.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>

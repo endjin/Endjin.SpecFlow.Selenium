@@ -44,13 +44,14 @@
 
         private TestEnvironment()
         {
-            FileInfo config = new FileInfo(@"WebsiteUnderTest\web_test.config.json");
-            if (!config.Exists)
-            { 
-                config = new FileInfo(TestContext.CurrentContext.TestDirectory + @"\WebsiteUnderTest\web_test.config.json");
+            var pathToConfig = @"\WebsiteUnderTest\web_test.config.json";
+            // If tests are running on NUnit > 3.0, files are found in the test directory
+            if (TestContext.CurrentContext.TestDirectory != null)
+            {
+                pathToConfig = TestContext.CurrentContext.TestDirectory + pathToConfig;
             }
             
-            var json = File.ReadAllText(config.FullName);
+            var json = File.ReadAllText(new FileInfo(pathToConfig).FullName);
 
             this.settings = JsonConvert.DeserializeObject<WebTestSettings>(json);
         }
