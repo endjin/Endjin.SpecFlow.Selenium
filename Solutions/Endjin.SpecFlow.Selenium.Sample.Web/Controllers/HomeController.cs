@@ -26,5 +26,15 @@ namespace Endjin.SpecFlow.Selenium.Sample.Web.Controllers
 
             return View();
         }
+
+        public ActionResult SpaView1()
+        {
+            return View();
+        }
+
+        public ActionResult SpaView2()
+        {
+            return View();
+        }
     }
 }
