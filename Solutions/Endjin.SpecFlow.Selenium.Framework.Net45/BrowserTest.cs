@@ -26,7 +26,7 @@
                 var parameters = new NavigatorSessionParameters
                                  {
                                          NavigationMap = map,
-                                         SinglePageApplication = TestEnvironment.Current.SinglePageApplication,
+                                         UseNavigationMap = TestEnvironment.Current.UseNavigationMap,
                                          AcceptUntrustedCertificates = TestEnvironment.Current.AcceptUntrustedCertificates,
                                          WebDriverType = TestEnvironment.Current.WebDriverType,
                                          HideCommandPromptWindow = TestEnvironment.Current.HideCommandPromptWindow,

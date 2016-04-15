@@ -66,11 +66,11 @@
             }
         }
 
-        public bool SinglePageApplication
+        public bool UseNavigationMap
         {
             get
             {
-                return this.settings.SinglePageApplication ?? false;
+                return this.settings.UseNavigationMap ?? true;
             }
         }
 

@@ -131,6 +131,6 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             set;
         }
 
-        public bool SinglePageApplication { get; set; }
+        public bool UseNavigationMap { get; set; }
     }
 }

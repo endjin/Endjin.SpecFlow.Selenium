@@ -22,8 +22,8 @@
             set;
         }
 
-        [JsonProperty("single_page_application")]
-        public bool? SinglePageApplication
+        [JsonProperty("use_navigation_map")]
+        public bool? UseNavigationMap
         {
             get;
             set;

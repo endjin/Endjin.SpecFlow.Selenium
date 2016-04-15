@@ -1,7 +1,7 @@
 ﻿{
   "web_app_name": "Endjin.SpecFlow.Selenium.Sample.Web",
   "website_url": "http://localhost:1727/",
-  "single_page_application": false,
+  "use_navigation_map": true,
   "auto_start_iis": true,
   "hide_iis": false,
   "delay_close": 0,

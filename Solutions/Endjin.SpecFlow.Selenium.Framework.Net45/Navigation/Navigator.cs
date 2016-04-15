@@ -29,9 +29,9 @@
         private static EventFiringWebDriver driver;
 
         private string queryParams;
-        private readonly bool singlePageApplication;
+        private readonly bool useNavigationMap;
 
-        private Navigator(IWebDriver driver, INavigationMap map, bool singlePageApplication)
+        private Navigator(IWebDriver driver, INavigationMap map, bool useNavigationMap)
         {
             var rwd = driver as RemoteDriver;
             this.SessionId = rwd == null ? Guid.NewGuid().ToString() : rwd.GetSessionId();
@@ -39,7 +39,7 @@
             Navigator.driver = new EventFiringWebDriver(driver);
             this.navigationMap = map;
 
-            this.singlePageApplication = singlePageApplication;
+            this.useNavigationMap = useNavigationMap;
 
             this.SubscribeToEvents();
         }
@@ -112,7 +112,7 @@
 
             var driver = WebDriverFactory.Create(session);
 
-            navigator = new Navigator(driver, session.NavigationMap, session.SinglePageApplication)
+            navigator = new Navigator(driver, session.NavigationMap, session.UseNavigationMap)
                         {
                                 IsQuietMode =
                                         session.WebDriverType
@@ -191,12 +191,22 @@
 
         public IPageModel GoToHomePage()
         {
+            this.ThrowIfUseNavigationMapIsFalse();
             var pageName = this.navigationMap.HomePageName;
             return this.GoToPageByName(pageName);
         }
 
+        private void ThrowIfUseNavigationMapIsFalse()
+        {
+            if (!this.useNavigationMap)
+            {
+                throw new InvalidOperationException("Method not supported when use_navigation_map is false");
+            }
+        }
+
         public IPageModel GoToPageByName(string pageName)
         {
+            this.ThrowIfUseNavigationMapIsFalse();
             var url = this.navigationMap.GetPageUrl(pageName);
 
             if (this.queryParams != null)
@@ -236,7 +246,9 @@
 
         public bool IsOnPage(string pageName)
         {
+            this.ThrowIfUseNavigationMapIsFalse();
             var currentUri = new Uri(this.CurrentUrl);
+
             var uri = this.navigationMap.GetPageUri(pageName);
 
             return Uri.Compare(
@@ -249,6 +261,7 @@
 
         public bool IsRedirectedToPage(string pageName)
         {
+            this.ThrowIfUseNavigationMapIsFalse();
             var currentUri = this.CurrentUrl;
             var uri = this.navigationMap.GetPageUri(pageName).ToString();
 
@@ -315,21 +328,17 @@
         private void OnElementClicked(object sender, WebElementEventArgs e)
         {
             this.Pause(2);
-            if (!this.singlePageApplication)
-            {
-                var navigated = new Uri(Navigator.driver.Url);
-                this.SetCurrentPage(navigated);
-            }
+
+            var navigated = new Uri(driver.Url);
+            this.SetCurrentPage(navigated);
         }
 
         private void OnNavigated(object sender, WebDriverNavigationEventArgs args)
         {
             this.Pause(2);
-            if (!this.singlePageApplication)
-            {
-                var navigated = new Uri(args.Url);
-                this.SetCurrentPage(navigated);
-            }
+
+            var navigated = new Uri(args.Url);
+            this.SetCurrentPage(navigated);
         }
 
         private void Perform(Func<Actions, Actions> func)
@@ -363,9 +372,12 @@
 
             // Is this exact URL unmapped, but of a type for which a page type 
             // and page name are known? If so, add a mapping.
-            this.navigationMap.MapIfNewKnownPageType(navigated);
-            this.CurrentPage = this.navigationMap.GetPage(navigated);
-            this.CurrentPage.Title = Navigator.driver.Title;
+            if (this.useNavigationMap)
+            {
+                this.navigationMap.MapIfNewKnownPageType(navigated);
+                this.CurrentPage = this.navigationMap.GetPage(navigated);
+                this.CurrentPage.Title = Navigator.driver.Title;
+            }
         }
 
         private void SubscribeToEvents()

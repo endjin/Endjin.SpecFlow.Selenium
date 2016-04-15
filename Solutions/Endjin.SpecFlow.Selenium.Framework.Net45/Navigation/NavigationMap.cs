@@ -31,6 +31,8 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             get;
         }
 
+        public virtual string SpaRoutingMarker => null;
+
         public IPageModel GetPage(string pageName, string url = null)
         {
             var type = this.GetPageModelType(pageName);
@@ -45,9 +47,19 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
 
         public IPageModel GetPage(Uri url)
         {
-            var localPath = url.LocalPath.TrimStart('/');
+            var slug = url.LocalPath.TrimStart('/');
 
-            var entry = this.pageMappings.SingleOrDefault(mapping => mapping.Slug == localPath) ?? this.HomePage;
+            if (this.SpaRoutingMarker != null && this.SpaRoutingMarker.Contains("#"))
+            {
+                slug = url.Fragment;
+            }
+
+            if (this.SpaRoutingMarker != null)
+            {
+                slug = slug.Replace(this.SpaRoutingMarker, "");
+            }
+
+            var entry = this.pageMappings.SingleOrDefault(mapping => mapping.Slug == slug) ?? this.HomePage;
 
             return this.GetPage(entry.Name, url.AbsoluteUri);
         }
@@ -163,7 +175,11 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
 
         private string Format(string slug)
         {
-            return string.IsNullOrWhiteSpace(slug) ? this.baseUrl : string.Format("{0}/{1}", this.baseUrl, slug);
+            if (this.SpaRoutingMarker == null)
+            {
+                return string.IsNullOrWhiteSpace(slug) ? this.baseUrl : string.Format("{0}/{1}", this.baseUrl, slug);
+            }
+            return string.IsNullOrWhiteSpace(slug) ? this.baseUrl : string.Format("{0}/{1}{2}", this.baseUrl, this.SpaRoutingMarker, slug);
         }
 
         private Type GetPageModelType(string pageName)
