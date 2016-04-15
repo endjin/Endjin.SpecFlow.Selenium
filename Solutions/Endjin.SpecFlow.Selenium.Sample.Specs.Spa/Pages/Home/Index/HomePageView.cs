@@ -1,4 +1,4 @@
-﻿namespace Endjin.SpecFlow.Selenium.Sample.Specs.Pages.Home.Index
+﻿namespace Endjin.SpecFlow.Selenium.Sample.Specs.Spa.Pages.Home.Index
 {
     using Endjin.SpecFlow.Selenium.Framework.Views;
 
