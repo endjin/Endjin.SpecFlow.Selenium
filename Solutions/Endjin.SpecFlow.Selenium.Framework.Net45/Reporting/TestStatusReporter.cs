@@ -41,8 +41,8 @@
             }
 
             // If we're using the remote driver, we need to update the Sauce Labs job status.
-            var username = TestEnvironment.Current.RemoteUsername;
-            var key = TestEnvironment.Current.RemoteKey;
+            var username = TestEnvironment.Current.SauceLabsRemoteUsername;
+            var key = TestEnvironment.Current.SauceLabsRemoteKey;
 
             var update = new JobStatusUpdate { Name = jobName, Passed = success };
             if (error != null)

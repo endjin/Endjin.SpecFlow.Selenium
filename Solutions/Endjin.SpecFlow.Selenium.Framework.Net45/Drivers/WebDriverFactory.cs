@@ -108,8 +108,12 @@
 
             // Note: Issue with SauceLabs. Some platform+browser+version 
             // combinations throw an exception when trying to set this.
-            // var pageLoadTimeout = TimeSpan.FromSeconds(session.PageLoadTimeout);
-            // driver.Manage().Timeouts().SetPageLoadTimeout(pageLoadTimeout);
+            if (!session.RunUsingSauceLabs)
+            {
+                var pageLoadTimeout = TimeSpan.FromSeconds(session.PageLoadTimeout);
+                driver.Manage().Timeouts().SetPageLoadTimeout(pageLoadTimeout);
+            }
+
             var scriptTimeout = TimeSpan.FromSeconds(session.ScriptTimeout);
             driver.Manage().Timeouts().SetScriptTimeout(scriptTimeout);
         }
@@ -124,14 +128,14 @@
 
         private static IWebDriver RemoteDriver(NavigatorSessionParameters session)
         {
-            var remoteAddress = new Uri(session.RemoteDriverUrl);
+            var remoteAddress = new Uri(session.SauceLabsRemoteDriverUrl);
 
-            var capabilities = GetDefaultCapabilities(session.RemoteBrowser);
+            var capabilities = GetDefaultCapabilities(session.SauceLabsRemoteBrowser);
 
-            capabilities.SetCapability(CapabilityType.Platform, session.RemotePlatform);
-            capabilities.SetCapability(CapabilityType.Version, session.RemoteBrowserVersion);
-            capabilities.SetCapability(CapabilityTypeExt.Username, session.RemoteUsername);
-            capabilities.SetCapability(CapabilityTypeExt.AccessKey, session.RemoteKey);
+            capabilities.SetCapability(CapabilityType.Platform, session.SauceLabsRemotePlatform);
+            capabilities.SetCapability(CapabilityType.Version, session.SauceLabsRemoteBrowserVersion);
+            capabilities.SetCapability(CapabilityTypeExt.Username, session.SauceLabsRemoteUsername);
+            capabilities.SetCapability(CapabilityTypeExt.AccessKey, session.SauceLabsRemoteKey);
             capabilities.SetCapability(CapabilityTypeExt.TestName, TestContext.CurrentContext.Test.Name);
 
             if (session.AcceptUntrustedCertificates)
