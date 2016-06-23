@@ -13,6 +13,8 @@
     <dependencies>
       <dependency id="Clarius.TransformOnBuild" version="1.1.12" />
       <dependency id="Endjin.Retry" version="1.0.0.50" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.3" />
+      <dependency id="Microsoft.Net.Http" version="2.2.29" />
       <dependency id="Newtonsoft.Json" version="8.0.2" />
       <dependency id="NUnit" version="3.0.1" />
       <dependency id="PhantomJS" version="2.1.1" />
