@@ -75,37 +75,37 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
         /// Remote Browser Values:
         /// "internet explorer", "firefox", "phantomjs", "htmlunit", "iPhone", "iPad", "android", "opera", "safari", "chrome"
         /// </summary>
-        public string RemoteBrowser
+        public string SauceLabsRemoteBrowser
         {
             get;
             set;
         }
 
-        public string RemoteBrowserVersion
+        public string SauceLabsRemoteBrowserVersion
         {
             get;
             set;
         }
 
-        public string RemoteDriverUrl
+        public string SauceLabsRemoteDriverUrl
         {
             get;
             set;
         }
 
-        public string RemoteKey
+        public string SauceLabsRemoteKey
         {
             get;
             set;
         }
 
-        public string RemotePlatform
+        public string SauceLabsRemotePlatform
         {
             get;
             set;
         }
 
-        public string RemoteUsername
+        public string SauceLabsRemoteUsername
         {
             get;
             set;
@@ -131,6 +131,9 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             set;
         }
 
+
         public bool UseNavigationMap { get; set; }
+
+        public bool RunUsingSauceLabs { get; set; }
     }
 }

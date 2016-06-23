@@ -30,9 +30,9 @@
 
         private Process iis;
 
-        private string remoteBrowser;
+        private string sauceLabsRemoteBrowser;
 
-        private string remoteBrowserVersion;
+        private string sauceLabsRemoteBrowserVersion;
 
         private string remotePlatform;
 
@@ -44,8 +44,19 @@
 
         private TestEnvironment()
         {
-            var config = new FileInfo(TestContext.CurrentContext.TestDirectory + @"\WebsiteUnderTest\web_test.config.json");
-            var json = File.ReadAllText(config.FullName);
+            var pathToConfig = @"WebsiteUnderTest\web_test.config.json";
+            // If tests are running on NUnit > 3.0, use test directory to find files
+            // A null check for this directory doesn't suffice as null checking TestContext.CurrentContext.TestDirectory throws a null reference exception with older versions of NUnit on TeamCity
+            try
+            {
+                pathToConfig = Path.Combine(TestContext.CurrentContext.TestDirectory, pathToConfig);
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine("TestContext.CurrentContext.TestDirectory not found: " + ex.Message);
+            }
+            
+            var json = File.ReadAllText(new FileInfo(pathToConfig).FullName);
 
             this.settings = JsonConvert.DeserializeObject<WebTestSettings>(json);
         }
@@ -58,11 +69,11 @@
             }
         }
 
-        public bool AutoStartIIS
+        public bool AutoStartLocalIIS
         {
             get
             {
-                return this.settings.AutoStartIIS ?? false;
+                return this.settings.AutoStartLocalIIS ?? false;
             }
         }
 
@@ -82,11 +93,11 @@
             }
         }
 
-        public bool HideIIS
+        public bool HideLocalIIS
         {
             get
             {
-                return this.settings.HideIIS ?? false;
+                return this.settings.HideLocalIIS ?? false;
             }
         }
 
@@ -131,57 +142,57 @@
             }
         }
 
-        public string RemoteBrowser
+        public string SauceLabsRemoteBrowser
         {
             get
             {
-                if (!this.remoteBrowser.IsNullOrEmpty())
+                if (!this.sauceLabsRemoteBrowser.IsNullOrEmpty())
                 {
-                    return this.remoteBrowser;
+                    return this.sauceLabsRemoteBrowser;
                 }
 
-                return this.settings.RemoteBrowser ?? "internet explorer";
+                return this.settings.SauceLabsRemoteBrowser ?? "internet explorer";
             }
             private set
             {
-                this.remoteBrowser = value;
+                this.sauceLabsRemoteBrowser = value;
             }
         }
 
-        public string RemoteBrowserVersion
+        public string SauceLabsRemoteBrowserVersion
         {
             get
             {
-                if (!this.remoteBrowserVersion.IsNullOrEmpty())
+                if (!this.sauceLabsRemoteBrowserVersion.IsNullOrEmpty())
                 {
-                    return this.remoteBrowserVersion;
+                    return this.sauceLabsRemoteBrowserVersion;
                 }
 
-                return this.settings.RemoteBrowserVersion ?? "11";
+                return this.settings.SauceLabsRemoteBrowserVersion ?? "11";
             }
             private set
             {
-                this.remoteBrowserVersion = value;
+                this.sauceLabsRemoteBrowserVersion = value;
             }
         }
 
-        public string RemoteUrl
+        public string SauceLabsRemoteUrl
         {
             get
             {
-                return this.settings.RemoteUrl;
+                return this.settings.SauceLabsRemoteUrl;
             }
         }
 
-        public string RemoteKey
+        public string SauceLabsRemoteKey
         {
             get
             {
-                return Environment.GetEnvironmentVariable(TeamCitySauceApiKey) ?? this.settings.RemoteKey;
+                return Environment.GetEnvironmentVariable(TeamCitySauceApiKey) ?? this.settings.SauceLabsRemoteKey;
             }
         }
 
-        public string RemotePlatform
+        public string SauceLabsRemotePlatform
         {
             get
             {
@@ -190,7 +201,7 @@
                     return this.remotePlatform;
                 }
 
-                return this.settings.RemotePlatform ?? "Windows 7";
+                return this.settings.SauceLabsRemotePlatform ?? "Windows 7";
             }
 
             private set
@@ -199,11 +210,11 @@
             }
         }
 
-        public string RemoteUsername
+        public string SauceLabsRemoteUsername
         {
             get
             {
-                return Environment.GetEnvironmentVariable(TeamCitySauceUserName) ?? this.settings.RemoteUsername;
+                return Environment.GetEnvironmentVariable(TeamCitySauceUserName) ?? this.settings.SauceLabsRemoteUsername;
             }
         }
 
@@ -227,10 +238,13 @@
         {
             get
             {
-                if (IsOnBuildServer)
+                if (this.RunUsingSauceLabs)
                 {
-                    // Run tests using a remote driver (e.g. tests are running against Sauce Labs).
                     return WebDriverType.Remote;
+                }
+                if (IsOnBuildServer && !this.RunUsingSauceLabs)
+                {
+                    return WebDriverType.PhantomJs;
                 }
 
                 var value = this.settings.WebDriverType;
@@ -254,6 +268,11 @@
             set;
         }
 
+        public bool RunUsingSauceLabs
+        {
+            get { return this.settings.RunUsingSauceLabs ?? false; }
+        }
+
         public string Description
         {
             get
@@ -262,22 +281,23 @@
 
                 sb.AppendLine("WebAppName" + this.WebAppName);
                 sb.AppendLine("WebsiteUrl = " + this.WebsiteUrl);
+                sb.AppendLine("RunUsingSauceLabs = " + this.RunUsingSauceLabs);
                 sb.AppendLine("WebDriverType = " + this.WebDriverType);
                 sb.AppendLine("IsRemote" + this.IsRemote);
                 sb.AppendLine("IsLocal" + this.IsLocal);
-                sb.AppendLine("AutoStartIIS" + this.AutoStartIIS);
-                sb.AppendLine("HideIIS" + this.HideIIS);
+                sb.AppendLine("AutoStartLocalIIS" + this.AutoStartLocalIIS);
+                sb.AppendLine("HideLocalIIS" + this.HideLocalIIS);
                 sb.AppendLine("DelayClose" + this.DelayClose);
                 sb.AppendLine("AcceptUntrustedCertificates" + this.AcceptUntrustedCertificates);
                 sb.AppendLine("ImplicitlyWait = " + this.ImplicitlyWait);
                 sb.AppendLine("PageLoadTimeout = " + this.PageLoadTimeout);
                 sb.AppendLine("ScriptTimeout = " + this.ScriptTimeout);
-                sb.AppendLine("RemoteBrowser = " + this.RemoteBrowser);
-                sb.AppendLine("RemoteBrowserVersion = " + this.RemoteBrowserVersion);
-                sb.AppendLine("RemotePlatform = " + this.RemotePlatform);
-                sb.AppendLine("RemoteDriverUrl = " + this.RemoteUrl);
-                sb.AppendLine("RemoteUsername = " + this.RemoteUsername);
-                sb.AppendLine("RemoteKey = " + this.RemoteKey);
+                sb.AppendLine("SauceLabsRemoteBrowser = " + this.SauceLabsRemoteBrowser);
+                sb.AppendLine("SauceLabsRemoteBrowserVersion = " + this.SauceLabsRemoteBrowserVersion);
+                sb.AppendLine("SauceLabsRemotePlatform = " + this.SauceLabsRemotePlatform);
+                sb.AppendLine("SauceLabsRemoteDriverUrl = " + this.SauceLabsRemoteUrl);
+                sb.AppendLine("SauceLabsRemoteUsername = " + this.SauceLabsRemoteUsername);
+                sb.AppendLine("SauceLabsRemoteKey = " + this.SauceLabsRemoteKey);
 
                 return sb.ToString();
             }
@@ -293,9 +313,9 @@
 
         public void SetRemoteBrowserContext(string platform, string browser, string browserVersion)
         {
-            this.RemotePlatform = platform;
-            this.RemoteBrowser = browser;
-            this.RemoteBrowserVersion = browserVersion;
+            this.SauceLabsRemotePlatform = platform;
+            this.SauceLabsRemoteBrowser = browser;
+            this.SauceLabsRemoteBrowserVersion = browserVersion;
         }
 
         public void StartWebsite()
@@ -327,11 +347,11 @@
                               FileName = string.Format("{0}\\IIS Express\\iisexpress.exe", programFiles),
                               Arguments = string.Format("/path:\"{0}\" /port:{1}", path, port),
                               WindowStyle =
-                                      this.HideIIS
+                                      this.HideLocalIIS
                                               ? ProcessWindowStyle.Hidden
                                               : ProcessWindowStyle.Normal,
                               ErrorDialog = true,
-                              CreateNoWindow = this.HideIIS,
+                              CreateNoWindow = this.HideLocalIIS,
                               UseShellExecute = false
                       };
 
@@ -356,7 +376,7 @@
 
             try
             {
-                if (this.HideIIS)
+                if (this.HideLocalIIS)
                 {
                     // If we don't have a window, we have to 'kill' the process.
                     this.iis.Kill();
