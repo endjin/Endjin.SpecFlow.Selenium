@@ -44,7 +44,7 @@ If false, the current page model must be set explicitly in your step definitions
 Setting this option to false allows the library to support single page applications which have a single invariant URL for all views 
 Single page applications which display other route marks (e.g. '#' or '#!') in the URL can use the navigation map
 Single page applications which display other route marks (e.g. '#' or '#!') in the URL should specify the SpaRoutingMarker in the WebsiteNavigationMap. The routing marker should not be included in MapPages() -->
-"use_navigation_map": false
+"use_navigation_map": true
 
 <!-- When set to true, Starts/Stops IIS Express automatically when running a feature;
 when set to false, start website on local machine 'manually', or point to a deployed version of the site 
