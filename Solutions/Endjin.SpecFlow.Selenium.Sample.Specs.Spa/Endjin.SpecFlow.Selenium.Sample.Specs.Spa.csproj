@@ -98,7 +98,6 @@
     <Compile Include="Pages\Home\Spa2\Spa2View.cs" />
     <Compile Include="Pages\Home\Spa2\SpaView2Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\CommonSteps.cs" />
     <Compile Include="Steps\HomeSteps.cs" />
     <Compile Include="WebsiteUnderTest\GenerateWebTests.cs">
       <AutoGen>True</AutoGen>

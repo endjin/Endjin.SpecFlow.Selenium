@@ -11,6 +11,8 @@ namespace Endjin.SpecFlow.Selenium.Framework
     using Endjin.SpecFlow.Selenium.Framework.Environment;
     using Endjin.SpecFlow.Selenium.Framework.Navigation;
 
+	using Should;
+
     using TechTalk.SpecFlow;
 
     #endregion
@@ -21,7 +23,7 @@ namespace Endjin.SpecFlow.Selenium.Framework
         [BeforeFeature]
         public static void FeatureSetup()
         {
-            if (TestEnvironment.Current.IsLocal && TestEnvironment.Current.AutoStartIIS)
+			if (TestEnvironment.Current.IsLocal && TestEnvironment.Current.AutoStartLocalIIS)
             {
                 TestEnvironment.Current.StartWebsite();
             }
@@ -51,6 +53,22 @@ namespace Endjin.SpecFlow.Selenium.Framework
         public static void ScenarioTeardown()
         {
             BrowserTest.Teardown();
+        }
+    }
+
+	[Binding]
+    public class CommonSteps
+    {
+        [Given(@"I go to the (.*) page")]
+        public void IGoToThePage(string page)
+        {
+            Navigator.Browser.GoToPageByName(page);
+        }
+
+        [Then(@"I should be taken to the (.*) page")]
+        public void IShouldBeOnThePage(string page)
+        {
+            Navigator.Browser.IsOnPage(page).ShouldBeTrue();
         }
     }
 }
