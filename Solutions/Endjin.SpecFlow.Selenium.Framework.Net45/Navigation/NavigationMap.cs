@@ -31,7 +31,10 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             get;
         }
 
-        protected virtual string SpaRoutingMarker => null;
+        protected virtual string SpaRoutingMarker
+        {
+            get { return null; }
+        }
 
         public IPageModel GetPage(string pageName, string url = null)
         {

@@ -17,7 +17,10 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
         }
 
 
-        protected override string SpaRoutingMarker => "#";
+        protected override string SpaRoutingMarker
+        {
+            get { return "#"; }
+        }
 
         // Maps the type to the name, slug, and shared sections contained on the page if any.
         protected override void MapPages()
