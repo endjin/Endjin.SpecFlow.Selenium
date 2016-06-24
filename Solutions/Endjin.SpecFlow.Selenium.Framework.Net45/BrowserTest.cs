@@ -32,12 +32,13 @@
                                          ImplicitlyWait = TestEnvironment.Current.ImplicitlyWait,
                                          PageLoadTimeout = TestEnvironment.Current.PageLoadTimeout,
                                          ScriptTimeout = TestEnvironment.Current.ScriptTimeout,
-                                         RemoteBrowser = TestEnvironment.Current.RemoteBrowser,
-                                         RemoteBrowserVersion = TestEnvironment.Current.RemoteBrowserVersion,
-                                         RemotePlatform = TestEnvironment.Current.RemotePlatform,
-                                         RemoteDriverUrl = TestEnvironment.Current.RemoteUrl,
-                                         RemoteUsername = TestEnvironment.Current.RemoteUsername,
-                                         RemoteKey = TestEnvironment.Current.RemoteKey
+                                         RunUsingSauceLabs = TestEnvironment.Current.RunUsingSauceLabs,
+                                         SauceLabsRemoteBrowser = TestEnvironment.Current.SauceLabsRemoteBrowser,
+                                         SauceLabsRemoteBrowserVersion = TestEnvironment.Current.SauceLabsRemoteBrowserVersion,
+                                         SauceLabsRemotePlatform = TestEnvironment.Current.SauceLabsRemotePlatform,
+                                         SauceLabsRemoteDriverUrl = TestEnvironment.Current.SauceLabsRemoteUrl,
+                                         SauceLabsRemoteUsername = TestEnvironment.Current.SauceLabsRemoteUsername,
+                                         SauceLabsRemoteKey = TestEnvironment.Current.SauceLabsRemoteKey
                                  };
 
                 Navigator.Initialize(parameters);
