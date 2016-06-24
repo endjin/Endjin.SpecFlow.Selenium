@@ -1,4 +1,11 @@
-﻿
+﻿************
+
+Release notes
+
+************
+
+See https://github.com/endjin/Endjin.SpecFlow.Selenium/blob/master/ReleaseNotes.md
+
 ************
 
 Instructions
