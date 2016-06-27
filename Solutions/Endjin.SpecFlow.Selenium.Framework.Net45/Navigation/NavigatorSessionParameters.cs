@@ -131,6 +131,9 @@ namespace Endjin.SpecFlow.Selenium.Framework.Navigation
             set;
         }
 
+
+        public bool UseNavigationMap { get; set; }
+
         public bool RunUsingSauceLabs { get; set; }
     }
 }

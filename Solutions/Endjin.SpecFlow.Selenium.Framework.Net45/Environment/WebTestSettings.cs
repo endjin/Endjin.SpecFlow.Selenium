@@ -22,6 +22,13 @@
             set;
         }
 
+        [JsonProperty("use_navigation_map")]
+        public bool? UseNavigationMap
+        {
+            get;
+            set;
+        }
+
         [JsonProperty("delay_close")]
         public int? DelayClose
         {

@@ -107,7 +107,6 @@
     <Compile Include="Pages\Home\Index\HomePageModel.cs" />
     <Compile Include="Pages\Home\Index\HomePageView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\CommonSteps.cs" />
     <Compile Include="Steps\RegisterSteps.cs" />
     <Compile Include="WebsiteUnderTest\GenerateWebTests.cs">
       <AutoGen>True</AutoGen>

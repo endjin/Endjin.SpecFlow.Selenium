@@ -21,5 +21,10 @@
         {
             return this.View.ManageLink.Text;
         }
+
+        public void ClickSpa1Link()
+        {
+            this.View.Spa1Link.Click();
+        }
     }
 }

@@ -9,5 +9,8 @@
     {
         [FindsBy(How = How.Id, Using = "Manage")]
         public IWebElement ManageLink { get; set; }
+
+        [FindsBy(How = How.Id, Using = "HomePageSpa1Link")]
+        public IWebElement Spa1Link { get; set; }
     }
 }

@@ -77,6 +77,14 @@
             }
         }
 
+        public bool UseNavigationMap
+        {
+            get
+            {
+                return this.settings.UseNavigationMap ?? true;
+            }
+        }
+
         public int DelayClose
         {
             get
