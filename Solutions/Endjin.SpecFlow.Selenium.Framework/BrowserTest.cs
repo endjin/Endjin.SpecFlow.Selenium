@@ -24,22 +24,22 @@
                 map.Initialize(TestEnvironment.Current.WebsiteUrl);
 
                 var parameters = new NavigatorSessionParameters
-                                 {
-                                         NavigationMap = map,
-                                         AcceptUntrustedCertificates = TestEnvironment.Current.AcceptUntrustedCertificates,
-                                         WebDriverType = TestEnvironment.Current.WebDriverType,
-                                         HideCommandPromptWindow = TestEnvironment.Current.HideCommandPromptWindow,
-                                         ImplicitlyWait = TestEnvironment.Current.ImplicitlyWait,
-                                         PageLoadTimeout = TestEnvironment.Current.PageLoadTimeout,
-                                         ScriptTimeout = TestEnvironment.Current.ScriptTimeout,
-                                         RunUsingSauceLabs = TestEnvironment.Current.RunUsingSauceLabs,
-                                         SauceLabsRemoteBrowser = TestEnvironment.Current.SauceLabsRemoteBrowser,
-                                         SauceLabsRemoteBrowserVersion = TestEnvironment.Current.SauceLabsRemoteBrowserVersion,
-                                         SauceLabsRemotePlatform = TestEnvironment.Current.SauceLabsRemotePlatform,
-                                         SauceLabsRemoteDriverUrl = TestEnvironment.Current.SauceLabsRemoteUrl,
-                                         SauceLabsRemoteUsername = TestEnvironment.Current.SauceLabsRemoteUsername,
-                                         SauceLabsRemoteKey = TestEnvironment.Current.SauceLabsRemoteKey
-                                 };
+                {
+                    NavigationMap = map,
+                    AcceptUntrustedCertificates = TestEnvironment.Current.AcceptUntrustedCertificates,
+                    WebDriverType = TestEnvironment.Current.WebDriverType,
+                    HideCommandPromptWindow = TestEnvironment.Current.HideCommandPromptWindow,
+                    ImplicitlyWait = TestEnvironment.Current.ImplicitlyWait,
+                    PageLoadTimeout = TestEnvironment.Current.PageLoadTimeout,
+                    ScriptTimeout = TestEnvironment.Current.ScriptTimeout,
+                    RunUsingSauceLabs = TestEnvironment.Current.RunUsingSauceLabs,
+                    SauceLabsRemoteBrowser = TestEnvironment.Current.SauceLabsRemoteBrowser,
+                    SauceLabsRemoteBrowserVersion = TestEnvironment.Current.SauceLabsRemoteBrowserVersion,
+                    SauceLabsRemotePlatform = TestEnvironment.Current.SauceLabsRemotePlatform,
+                    SauceLabsRemoteDriverUrl = TestEnvironment.Current.SauceLabsRemoteUrl,
+                    SauceLabsRemoteUsername = TestEnvironment.Current.SauceLabsRemoteUsername,
+                    SauceLabsRemoteKey = TestEnvironment.Current.SauceLabsRemoteKey
+                };
 
                 Navigator.Initialize(parameters);
             }

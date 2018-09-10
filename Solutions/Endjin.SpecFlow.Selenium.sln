@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Endjin.SpecFlow.Selenium.Framework.Net45", "Endjin.SpecFlow.Selenium.Framework.Net45\Endjin.SpecFlow.Selenium.Framework.Net45.csproj", "{1D68A4C5-4322-4276-901F-DBE7FA1310AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Endjin.SpecFlow.Selenium.Framework", "Endjin.SpecFlow.Selenium.Framework\Endjin.SpecFlow.Selenium.Framework.csproj", "{1D68A4C5-4322-4276-901F-DBE7FA1310AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{63239059-17B7-4F4E-B8FC-C647DFDEB653}"
 EndProject
@@ -36,5 +36,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0C56B2F6-2AA6-4A77-A3A2-B21C321F8096} = {63239059-17B7-4F4E-B8FC-C647DFDEB653}
 		{A32CB9DD-F059-4C32-8505-4B5A7D2C225E} = {63239059-17B7-4F4E-B8FC-C647DFDEB653}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA2C7F29-52DE-4428-80C3-A38BB74B3D19}
 	EndGlobalSection
 EndGlobal
