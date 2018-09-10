@@ -9,12 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Endjin.SpecFlow.Selenium.Framework</RootNamespace>
     <AssemblyName>EndjinSpecFlowSeleniumFrameworkNet45</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,15 +40,11 @@
       <HintPath>..\..\Packages\Endjin.Retry.1.0.0.50\lib\portable-net45+win8\EndjinRetry.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Packages\NUnit.3.2.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="nunit.framework, Version=2.7.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\NUnit.2.7.0\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Should">
       <HintPath>..\..\Packages\Should.1.1.20\lib\Should.dll</HintPath>
@@ -61,15 +58,17 @@
       <HintPath>..\..\Packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>..\..\Packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\..\Packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,30 +76,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TechTalk.SpecFlow, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Packages\SpecFlow.2.0.0\lib\net45\TechTalk.SpecFlow.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="WebDriver, Version=2.53.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Packages\Selenium.WebDriver.2.53.0\lib\net40\WebDriver.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WebDriver, Version=3.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\Selenium.WebDriver.3.14.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver.Support">
-      <HintPath>..\..\Packages\Selenium.Support.2.53.0\lib\net40\WebDriver.Support.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WebDriver.Support, Version=3.14.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Packages\Selenium.Support.3.14.0\lib\net45\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrowserTest.cs" />
-    <Content Include="..\..\Packages\PhantomJS.2.1.1\tools\phantomjs\phantomjs.exe">
-      <Link>phantomjs.exe</Link>
-    </Content>
     <Content Include="..\..\Packages\WebDriver.ChromeDriver.win32.2.21.0.0\content\chromedriver.exe">
       <Link>chromedriver.exe</Link>
-    </Content>
-    <Content Include="phantomjs-license.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WebsiteUnderTest\WebsiteNavigationMap.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -156,7 +144,9 @@
     <Content Include="install.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="WebsiteUnderTest\web_test.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -170,15 +160,19 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\Packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets" Condition="Exists('..\..\Packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\Packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets'))" />
     <Error Condition="!Exists('..\..\Packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\..\Packages\Clarius.TransformOnBuild.1.21.0\build\Clarius.TransformOnBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Packages\Clarius.TransformOnBuild.1.21.0\build\Clarius.TransformOnBuild.targets'))" />
+    <Error Condition="!Exists('..\..\Packages\Selenium.WebDriver.ChromeDriver.2.41.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Packages\Selenium.WebDriver.ChromeDriver.2.41.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('..\..\Packages\Selenium.WebDriver.IEDriver.3.14.0\build\Selenium.WebDriver.IEDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Packages\Selenium.WebDriver.IEDriver.3.14.0\build\Selenium.WebDriver.IEDriver.targets'))" />
   </Target>
   <Import Project="..\..\Packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\Packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\..\Packages\Clarius.TransformOnBuild.1.21.0\build\Clarius.TransformOnBuild.targets" Condition="Exists('..\..\Packages\Clarius.TransformOnBuild.1.21.0\build\Clarius.TransformOnBuild.targets')" />
+  <Import Project="..\..\Packages\Selenium.WebDriver.ChromeDriver.2.41.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\..\Packages\Selenium.WebDriver.ChromeDriver.2.41.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="..\..\Packages\Selenium.WebDriver.IEDriver.3.14.0\build\Selenium.WebDriver.IEDriver.targets" Condition="Exists('..\..\Packages\Selenium.WebDriver.IEDriver.3.14.0\build\Selenium.WebDriver.IEDriver.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

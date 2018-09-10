@@ -3,6 +3,9 @@
     #region Using Directives
 
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
 
     using Endjin.SpecFlow.Selenium.Framework.Constants;
     using Endjin.SpecFlow.Selenium.Framework.Navigation;
@@ -11,9 +14,9 @@
 
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Edge;
     using OpenQA.Selenium.Firefox;
     using OpenQA.Selenium.IE;
-    using OpenQA.Selenium.PhantomJS;
     using OpenQA.Selenium.Remote;
     using OpenQA.Selenium.Safari;
 
@@ -28,127 +31,122 @@
             return driver;
         }
 
-        private static IWebDriver Chrome(NavigatorSessionParameters session)
+        private static IWebDriver CreateDriver(NavigatorSessionParameters session)
         {
+            var options = GetDefaultOptions(session.WebDriverType);
+            if (session.AcceptUntrustedCertificates)
+            {
+                options.AcceptInsecureCertificates = true;
+            }
+            
+            switch (session.WebDriverType)
+            {
+                case WebDriverType.Remote:
+                    return Remote(session, options);
+                case WebDriverType.Edge:
+                    return Edge(options);
+                case WebDriverType.Firefox:
+                    return Firefox(options);
+                case WebDriverType.InternetExplorer:
+                    return InternetExplorer(session, options);
+                case WebDriverType.Safari:
+                    return Safari(options);
+                default:
+                    return Chrome(session, options);
+            }
+        }
+
+        private static IWebDriver Remote(NavigatorSessionParameters session, DriverOptions options)
+        {
+            var remoteAddress = new Uri(
+                "http://" + session.SauceLabsRemoteUsername + ":" + session.SauceLabsRemoteKey
+                + session.SauceLabsRemoteDriverUrl);
+          
+            options.PlatformName = session.SauceLabsRemotePlatform;
+            options.BrowserVersion = session.SauceLabsRemoteBrowserVersion;
+
+            return new RemoteWebDriver(remoteAddress, options);
+        }
+        private static DriverOptions GetDefaultOptions(WebDriverType type)
+        {
+            switch (type)
+            {
+                case WebDriverType.InternetExplorer:
+                    return new InternetExplorerOptions();
+                case WebDriverType.Firefox:
+                    return new FirefoxOptions();
+                case WebDriverType.Edge:
+                    return new EdgeOptions();
+                case WebDriverType.Safari:
+                    return new SafariOptions();
+                default:
+                    return new ChromeOptions();
+            }
+        }
+
+        private static IWebDriver Chrome(NavigatorSessionParameters session, DriverOptions options)
+        {
+            var chromeOptions = (ChromeOptions)options;
+            
             var service = ChromeDriverService.CreateDefaultService();
             service.HideCommandPromptWindow = session.HideCommandPromptWindow;
 
-            return new ChromeDriver(service, new ChromeOptions());
+            return new ChromeDriver(service, chromeOptions);
         }
 
-        private static IWebDriver CreateDriver(NavigatorSessionParameters session)
+        private static FirefoxDriver Firefox(DriverOptions options)
+        {          
+            var firefoxOptions = (FirefoxOptions)options;
+            var firefoxProfile = new FirefoxProfile();
+            firefoxProfile.SetPreference("browser.startup.homepage", "about:blank");
+            firefoxOptions.Profile = firefoxProfile;
+
+            return new FirefoxDriver((FirefoxOptions)options);
+        }
+
+        private static EdgeDriver Edge(DriverOptions options)
         {
-            switch (session.WebDriverType)
-            {
-                case WebDriverType.Chrome:
-                    return Chrome(session);
-                case WebDriverType.Firefox:
-                    return Firefox(session);
-                case WebDriverType.InternetExplorer:
-                    return InternetExplorer(session);
-                case WebDriverType.PhantomJs:
-                    return PhantomJs(session);
-                case WebDriverType.Remote:
-                    return RemoteDriver(session);
-                case WebDriverType.Safari:
-                    return Safari();
-                default:
-                    return PhantomJs(session);
-            }
+            var edgeOptions = (EdgeOptions)options;
+            
+            return new EdgeDriver(edgeOptions);
         }
 
-        private static FirefoxDriver Firefox(NavigatorSessionParameters session)
-        {
-            var profile = new FirefoxProfile { AcceptUntrustedCertificates = session.AcceptUntrustedCertificates };
-            profile.SetPreference("browser.startup.homepage", "about:blank");
-
-            return new FirefoxDriver(profile);
-        }
-
-        private static DesiredCapabilities GetDefaultCapabilities(string browser)
-        {
-            switch (browser)
-            {
-                case "internet explorer":
-                    return DesiredCapabilities.InternetExplorer();
-                case "firefox":
-                    return DesiredCapabilities.Firefox();
-                case "phantomjs":
-                    return DesiredCapabilities.PhantomJS();
-                case "htmlunit":
-                    return DesiredCapabilities.HtmlUnitWithJavaScript();
-                case "iPhone":
-                    return DesiredCapabilities.IPhone();
-                case "iPad":
-                    return DesiredCapabilities.IPad();
-                case "android":
-                    return DesiredCapabilities.Android();
-                case "opera":
-                    return DesiredCapabilities.Opera();
-                case "safari":
-                    return DesiredCapabilities.Safari();
-                case "chrome":
-                default:
-                    return DesiredCapabilities.Chrome();
-            }
-        }
-
-        private static IWebDriver InternetExplorer(NavigatorSessionParameters session)
+        private static IWebDriver InternetExplorer(NavigatorSessionParameters session, DriverOptions options)
         {
             var service = InternetExplorerDriverService.CreateDefaultService();
             service.HideCommandPromptWindow = session.HideCommandPromptWindow;
 
-            return new InternetExplorerDriver(service, new InternetExplorerOptions());
+            var ieOptions = (InternetExplorerOptions)options;
+            ieOptions.AcceptInsecureCertificates = false;
+            return new InternetExplorerDriver(service, ieOptions);
+        }
+        private static IWebDriver Safari(DriverOptions options)
+        {
+            var safariOptions = (SafariOptions)options;
+            return new SafariDriver(safariOptions);
         }
 
         private static void Manage(IWebDriver driver, NavigatorSessionParameters session)
         {
             var elementSearchTimeout = TimeSpan.FromSeconds(session.ImplicitlyWait);
-            driver.Manage().Timeouts().ImplicitlyWait(elementSearchTimeout);
+            
+            driver.Manage().Timeouts().ImplicitWait = elementSearchTimeout;
 
             // Note: Issue with SauceLabs. Some platform+browser+version 
             // combinations throw an exception when trying to set this.
             if (!session.RunUsingSauceLabs)
             {
                 var pageLoadTimeout = TimeSpan.FromSeconds(session.PageLoadTimeout);
-                driver.Manage().Timeouts().SetPageLoadTimeout(pageLoadTimeout);
+                driver.Manage().Timeouts().PageLoad = pageLoadTimeout;
             }
 
             var scriptTimeout = TimeSpan.FromSeconds(session.ScriptTimeout);
-            driver.Manage().Timeouts().SetScriptTimeout(scriptTimeout);
+            driver.Manage().Timeouts().AsynchronousJavaScript = scriptTimeout;
         }
 
-        private static IWebDriver PhantomJs(NavigatorSessionParameters session)
-        {
-            var service = PhantomJSDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = session.HideCommandPromptWindow;
 
-            return new PhantomJSDriver(service, new PhantomJSOptions());
-        }
+        
 
-        private static IWebDriver RemoteDriver(NavigatorSessionParameters session)
-        {
-            var remoteAddress = new Uri(session.SauceLabsRemoteDriverUrl);
 
-            var capabilities = GetDefaultCapabilities(session.SauceLabsRemoteBrowser);
-
-            capabilities.SetCapability(CapabilityType.Platform, session.SauceLabsRemotePlatform);
-            capabilities.SetCapability(CapabilityType.Version, session.SauceLabsRemoteBrowserVersion);
-            capabilities.SetCapability(CapabilityTypeExt.Username, session.SauceLabsRemoteUsername);
-            capabilities.SetCapability(CapabilityTypeExt.AccessKey, session.SauceLabsRemoteKey);
-            capabilities.SetCapability(CapabilityTypeExt.TestName, TestContext.CurrentContext.Test.Name);
-
-            if (session.AcceptUntrustedCertificates)
-            {
-                capabilities.SetCapability("AcceptUntrustedCertificates", true);
-            }
-
-            return new RemoteDriver(remoteAddress, capabilities);
-        }
-
-        private static IWebDriver Safari()
-        {
-            return new SafariDriver();
-        }
     }
 }

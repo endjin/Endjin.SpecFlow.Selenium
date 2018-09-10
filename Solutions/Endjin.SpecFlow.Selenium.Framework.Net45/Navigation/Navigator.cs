@@ -111,9 +111,7 @@
 
             navigator = new Navigator(driver, session.NavigationMap)
                         {
-                                IsQuietMode =
-                                        session.WebDriverType
-                                        == WebDriverType.PhantomJs
+                                IsQuietMode = false
                         };
         }
 
@@ -289,7 +287,7 @@
             try
             {
                 var screenshot = Navigator.driver.TakeScreenshot();
-                screenshot.SaveAsFile(fileName, ImageFormat.Png);
+                screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Png);
             }
             catch (Exception ex)
             {

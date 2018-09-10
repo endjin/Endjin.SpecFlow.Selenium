@@ -4,11 +4,11 @@
 
     public class HomePageModel : PageModel<HomePageView>
     {
-        public bool HasManageLink()
+        public bool HasUserLink()
         {
             try
             {
-                var text = this.View.ManageLink.Text;
+                var text = this.View.UserLink.Text;
                 return true;
             }
             catch (System.Exception)
@@ -17,9 +17,9 @@
             }
         }
 
-        public string GetManageLinkText()
+        public string GetUserLinkText()
         {
-            return this.View.ManageLink.Text;
+            return this.View.UserLink.Text;
         }
     }
 }

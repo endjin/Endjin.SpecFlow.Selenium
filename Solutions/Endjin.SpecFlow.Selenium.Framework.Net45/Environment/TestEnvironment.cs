@@ -234,11 +234,7 @@
                 {
                     return WebDriverType.Remote;
                 }
-                if (IsOnBuildServer && !this.RunUsingSauceLabs)
-                {
-                    return WebDriverType.PhantomJs;
-                }
-
+         
                 var value = this.settings.WebDriverType;
 
                 WebDriverType type;

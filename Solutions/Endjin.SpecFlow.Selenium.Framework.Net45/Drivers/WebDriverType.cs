@@ -10,10 +10,10 @@
 
         InternetExplorer,
 
-        PhantomJs,
-
         Remote,
 
         Safari,
+
+        Edge
     }
 }

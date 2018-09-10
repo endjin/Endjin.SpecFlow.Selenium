@@ -57,8 +57,8 @@ without attaching the debugger before running the tests -->
 Useful when trying to view the browser test just before it closes -->
 "delay_close": 0,
 
-<!-- Possible Values (PhantomJs by default):
-Default, Chrome, Firefox, InternetExplorer, PhantomJs, Remote, Safari. If run_using_sauce_labs is true, this gets set to Remote. If run_using_sauce_labs is false but the tests are running on a build server, this gets set to PhantomJS -->
+<!-- Possible Values (Chrome by default):
+Default, Chrome, Firefox, InternetExplorer, Remote, Safari. If run_using_sauce_labs is true, this gets set to Remote. If run_using_sauce_labs is false but the tests are running on a build server, this gets set to PhantomJS -->
 "web_driver_type": "Default",
 
 <!-- WebDrivers config -->

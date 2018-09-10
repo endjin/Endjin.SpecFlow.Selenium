@@ -57,7 +57,7 @@
         {
             var page = Navigator.Browser.CurrentPage.As<HomePageModel>();
 
-            page.HasManageLink().ShouldBeTrue();
+            page.HasUserLink().ShouldBeTrue();
         }
 
         [Then(@"the welcome message should contain my email address")]
@@ -66,8 +66,8 @@
             var page = Navigator.Browser.CurrentPage.As<HomePageModel>();
 
             var email = ScenarioContext.Current.Get<string>("Email");
-
-            page.GetManageLinkText().ShouldContain(email);
+            
+            page.GetUserLinkText().ShouldContain(email);
         }
     }
 }

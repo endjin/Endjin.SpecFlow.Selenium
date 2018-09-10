@@ -7,7 +7,7 @@
 
     public class HomePageView : PageView
     {
-        [FindsBy(How = How.Id, Using = "Manage")]
-        public IWebElement ManageLink { get; set; }
+        [FindsBy(How = How.Id, Using = "User")]
+        public IWebElement UserLink { get; set; }
     }
 }
